@@ -55,11 +55,11 @@ export default function MeshNetwork({ isOffline, queueCount }: { isOffline: bool
     if (!nodes.length) return [];
     const minLat = Math.min(...nodes.map((node) => node.lat));
     const maxLat = Math.max(...nodes.map((node) => node.lat));
-    const minLon = Math.min(...nodes.map((node) => node.lon));
-    const maxLon = Math.max(...nodes.map((node) => node.lon));
+    const minLon = Math.min(...nodes.map((node) => node.lng));
+    const maxLon = Math.max(...nodes.map((node) => node.lng));
     return nodes.map((node) => ({
       ...node,
-      x: 80 + ((node.lon - minLon) / Math.max(0.01, maxLon - minLon)) * 840,
+      x: 80 + ((node.lng - minLon) / Math.max(0.01, maxLon - minLon)) * 840,
       y: 80 + (1 - (node.lat - minLat) / Math.max(0.01, maxLat - minLat)) * 420,
     }));
   }, [nodes]);
@@ -131,13 +131,13 @@ export default function MeshNetwork({ isOffline, queueCount }: { isOffline: bool
                 <div className="flex items-start justify-between gap-3">
                   <div>
                     <h2 className="font-black">{node.village_name}</h2>
-                    <p className="text-sm text-text-muted">{node.district}</p>
+                    <p className="text-sm text-text-muted">Hops to hub: {node.hop_distance_to_hub}</p>
                   </div>
                   <span className={`h-3 w-3 rounded-full ${statusClass(node.status).split(' ')[0]}`} />
                 </div>
                 <div className="mt-4 flex flex-wrap gap-2">
                   <span className={`badge ${statusClass(node.status).replace('bg-', 'border-').replace(' text-', ' text-')}`}>{node.status}</span>
-                  <span className="badge border-accent-cyan/40 text-accent-cyan">{node.connectivity.toUpperCase()}</span>
+                  <span className="badge border-accent-cyan/40 text-accent-cyan">LORA</span>
                 </div>
                 <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
                   <div className="rounded-md border border-white/10 bg-bg-primary p-3">
@@ -147,21 +147,21 @@ export default function MeshNetwork({ isOffline, queueCount }: { isOffline: bool
                   </div>
                   <div className="rounded-md border border-white/10 bg-bg-primary p-3">
                     <Radio className="mb-2 h-4 w-4 text-accent-cyan" />
-                    <div className="font-black">{node.last_sync_ago_min}m</div>
-                    <div className="text-xs text-text-muted">Last sync</div>
+                    <div className="flex items-center justify-between">
+                      <span className="font-black">{Math.round(node.link_quality * 100)}%</span>
+                      <SignalBars level={Math.ceil(node.link_quality * 4)} />
+                    </div>
+                    <div className="text-xs text-text-muted">Link Quality</div>
                   </div>
                   <div className="rounded-md border border-white/10 bg-bg-primary p-3">
                     <Satellite className="mb-2 h-4 w-4 text-accent-amber" />
-                    <div className="font-black">{node.drones_available}</div>
-                    <div className="text-xs text-text-muted">Drones</div>
+                    <div className="font-black">{node.queue_depth}</div>
+                    <div className="text-xs text-text-muted">Queue Depth</div>
                   </div>
                   <div className="rounded-md border border-white/10 bg-bg-primary p-3">
                     <Signal className="mb-2 h-4 w-4 text-accent-cyan" />
-                    <div className="flex items-center justify-between">
-                      <span className="font-black">{node.cases_today}</span>
-                      <SignalBars level={signalLevel} />
-                    </div>
-                    <div className="text-xs text-text-muted">Cases today</div>
+                    <div className="font-black">{new Date(node.last_seen).toLocaleTimeString()}</div>
+                    <div className="text-xs text-text-muted">Last Seen</div>
                   </div>
                 </div>
                 <div className="mt-3 text-xs text-text-muted">Node ring index {index + 1}: LoRa broadcast contains case ID and priority only, not patient PII.</div>
@@ -190,9 +190,11 @@ export default function MeshNetwork({ isOffline, queueCount }: { isOffline: bool
                 </feMerge>
               </filter>
             </defs>
-            {positioned.slice(0, -1).map((node, index) => {
-              const next = positioned[index + 1];
-              const strength = node.status === 'online' && next.status === 'online' ? 5 : 2.5;
+            {positioned.map((node) => {
+              const next = positioned.find(n => n.hop_distance_to_hub === node.hop_distance_to_hub - 1);
+              if (!next) return null;
+              
+              const strength = Math.max(1, node.link_quality * 5);
               return (
                 <line
                   key={`${node.node_id}-${next.node_id}`}
@@ -204,7 +206,7 @@ export default function MeshNetwork({ isOffline, queueCount }: { isOffline: bool
                   strokeWidth={strength}
                   strokeDasharray="16 14"
                   className={syncing ? 'animate-dataFlow' : ''}
-                  opacity="0.72"
+                  opacity={node.link_quality}
                 />
               );
             })}
@@ -216,7 +218,7 @@ export default function MeshNetwork({ isOffline, queueCount }: { isOffline: bool
                   {node.village_name}
                 </text>
                 <text x={node.x + 16} y={node.y + 8} fill="#6b7280" fontSize="13">
-                  {node.connectivity.toUpperCase()} | {node.battery_pct}%
+                  LORA | {node.battery_pct}%
                 </text>
               </g>
             ))}

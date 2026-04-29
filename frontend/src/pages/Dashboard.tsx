@@ -156,7 +156,7 @@ export default function Dashboard({
               {nodes.map((node) => (
                 <CircleMarker
                   key={node.node_id}
-                  center={[node.lat, node.lon]}
+                  center={[node.lat, node.lng]}
                   radius={node.status === 'offline' ? 8 : 11}
                   pathOptions={{
                     color: node.status === 'offline' ? '#ff1744' : node.status === 'degraded' ? '#ffb300' : '#00d4ff',
@@ -168,10 +168,10 @@ export default function Dashboard({
                   <Popup>
                     <div className="space-y-1 text-sm">
                       <strong>{node.village_name}</strong>
-                      <div>{node.district}</div>
+                      <div>Hops: {node.hop_distance_to_hub}</div>
                       <div>Status: {node.status}</div>
-                      <div>Connectivity: {node.connectivity.toUpperCase()}</div>
-                      <div>Drones: {node.drones_available}</div>
+                      <div>Connectivity: LORA</div>
+                      <div>Queue Depth: {node.queue_depth}</div>
                     </div>
                   </Popup>
                 </CircleMarker>

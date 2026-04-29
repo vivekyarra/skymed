@@ -17,7 +17,8 @@ from sqlmodel import Session, SQLModel, create_engine, desc, select
 
 from drone_simulator import build_waypoints, choose_origin, interpolate_route, mission_estimates, random_wind_speed_ms
 from models import Case, Mission, utc_now
-from seed_data import MESH_NODES, VILLAGE_COORDS, seed_database
+from seed_data import VILLAGE_COORDS, seed_database
+from mesh_engine import generate_mesh_status, simulate_packet_routing, run_mesh_heartbeat
 from triage_engine import CHIEF_COMPLAINTS, PAYLOAD_LABELS, PAYLOAD_WEIGHTS_KG, calculate_payload_weight, score_triage
 from triage_model import estimate_visual_severity
 
@@ -124,6 +125,7 @@ def mission_to_public(mission: Mission) -> dict[str, Any]:
 def on_startup() -> None:
     SQLModel.metadata.create_all(engine)
     seed_database(engine)
+    asyncio.create_task(run_mesh_heartbeat())
 
 
 @app.get("/api/health")
@@ -403,7 +405,15 @@ def get_fleet() -> list[dict[str, Any]]:
 
 @app.get("/api/mesh/nodes")
 def get_mesh_nodes() -> list[dict[str, Any]]:
-    return MESH_NODES
+    return generate_mesh_status()
+
+class MeshInjectRequest(BaseModel):
+    origin_node_id: str
+    payload_type: str = "triage_alert"
+
+@app.post("/api/mesh/inject")
+def inject_mesh_packet(request: MeshInjectRequest) -> dict[str, Any]:
+    return simulate_packet_routing(request.origin_node_id, request.payload_type)
 
 
 @app.post("/api/sync")
@@ -436,9 +446,9 @@ def live_snapshot() -> dict[str, Any]:
         active_missions.append({**mission_to_public(mission), "telemetry": telemetry})
 
     mesh_status_summary = {
-        "online": len([node for node in MESH_NODES if node["status"] == "online"]),
-        "degraded": len([node for node in MESH_NODES if node["status"] == "degraded"]),
-        "offline": len([node for node in MESH_NODES if node["status"] == "offline"]),
+        "online": len([node for node in generate_mesh_status() if node["status"] == "online"]),
+        "degraded": len([node for node in generate_mesh_status() if node["status"] == "degraded"]),
+        "offline": len([node for node in generate_mesh_status() if node["status"] == "offline"]),
     }
     now = datetime.now(timezone.utc)
     cases_last_hour = len([case for case in recent_cases if (now - _aware_utc(case.created_at)).total_seconds() <= 3600])

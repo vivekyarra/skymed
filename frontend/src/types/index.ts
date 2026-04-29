@@ -13,15 +13,14 @@ export type ChiefComplaint =
 export type MeshNode = {
   node_id: string;
   village_name: string;
-  district: string;
-  lat: number;
-  lon: number;
   status: 'online' | 'degraded' | 'offline';
   battery_pct: number;
-  last_sync_ago_min: number;
-  drones_available: number;
-  cases_today: number;
-  connectivity: 'lora' | 'mesh' | '4g' | 'offline';
+  last_seen: string;
+  queue_depth: number;
+  lat: number;
+  lng: number;
+  link_quality: number;
+  hop_distance_to_hub: number;
 };
 
 export type CaseRecord = {

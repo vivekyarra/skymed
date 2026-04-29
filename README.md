@@ -59,7 +59,8 @@ Primary routes:
 - `POST /api/drone/dispatch`: doctor-confirmed dispatch only; validates payload weight and wind go/no-go.
 - `GET /api/drone/telemetry/{mission_id}`: interpolated drone position, battery, ETA, status.
 - `GET /api/cases`: newest 50 cases with priority/status/village filters.
-- `GET /api/mesh/nodes`: 8 hardcoded tribal AP mesh nodes.
+- `GET /api/mesh/nodes`: 13 real tribal AP mesh nodes with store-and-forward simulation telemetry.
+- `POST /api/mesh/inject`: inject a packet and trace its route across the mesh.
 - `POST /api/sync`: edge-to-cloud sync simulation.
 - `WebSocket /ws/live`: active missions, P1 alerts, mesh summary, airborne drones, recent cases.
 
@@ -68,7 +69,8 @@ Primary routes:
 1. Start backend and frontend with Docker or manual setup.
 2. Open the dashboard and confirm the map is centered on tribal Andhra Pradesh.
 3. Check pulsing mesh nodes, P1 alert feed, and drone telemetry strip.
-4. Open Triage Portal.
+4. Open the **Edge Tablet** tab to see the simulated ASHA worker interface in Telugu/English with Bluetooth vitals capture.
+5. Open Triage Portal or use the Edge Tablet to submit a case.
 5. Upload a wound or symptom photo.
 6. Use the default P1-style vitals or enter severe values: SpO2 88, HR 132, systolic BP 84, chief complaint snakebite.
 7. Click `Analyze & Triage`.
@@ -92,7 +94,7 @@ npm run build
 
 ## Tech Stack
 
-- FastAPI, SQLModel, SQLite, Pillow
+- FastAPI, SQLModel, SQLite, ONNXRuntime, Pillow
 - React, TypeScript, Vite, Tailwind
 - Leaflet maps, Recharts analytics, Framer Motion interactions
 - WebSocket live telemetry

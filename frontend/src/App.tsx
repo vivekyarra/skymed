@@ -14,6 +14,7 @@ import {
   Plane,
   Radio,
   ShieldAlert,
+  TabletSmartphone,
   Wifi,
   WifiOff,
 } from 'lucide-react';
@@ -24,11 +25,12 @@ import DroneFleet from './pages/DroneFleet';
 import MeshNetwork from './pages/MeshNetwork';
 import Analytics from './pages/Analytics';
 import About from './pages/About';
+import EdgeTablet from './pages/EdgeTablet';
 import { syncEdgeQueue } from './api/client';
 import { useWebSocket } from './hooks/useWebSocket';
 import type { OfflineQueuedCase } from './types';
 
-type PageKey = 'dashboard' | 'triage' | 'fleet' | 'mesh' | 'analytics' | 'about';
+type PageKey = 'dashboard' | 'triage' | 'fleet' | 'mesh' | 'analytics' | 'about' | 'edge-tablet';
 
 const navItems: Array<{ key: PageKey; label: string; icon: typeof Home }> = [
   { key: 'dashboard', label: 'Dashboard', icon: Home },
@@ -36,6 +38,7 @@ const navItems: Array<{ key: PageKey; label: string; icon: typeof Home }> = [
   { key: 'fleet', label: 'Drone Fleet', icon: Plane },
   { key: 'mesh', label: 'Mesh Network', icon: Network },
   { key: 'analytics', label: 'Analytics', icon: BarChart3 },
+  { key: 'edge-tablet', label: 'Edge Tablet', icon: TabletSmartphone },
   { key: 'about', label: 'About', icon: Info },
 ];
 
@@ -122,6 +125,8 @@ export default function App() {
         return <MeshNetwork isOffline={offlineMode} queueCount={offlineQueue.length} />;
       case 'analytics':
         return <Analytics isOffline={offlineMode} />;
+      case 'edge-tablet':
+        return <EdgeTablet isOffline={offlineMode} queueCount={offlineQueue.length} onQueueCase={queueCase} />;
       case 'about':
         return <About />;
       default:

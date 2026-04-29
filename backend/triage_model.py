@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 from typing import Any
 
 from PIL import Image, ImageStat
@@ -16,12 +17,61 @@ def _clamp(value: float, minimum: float, maximum: float) -> float:
     return max(minimum, min(maximum, value))
 
 
+_onnx_session = None
+_onnx_load_attempted = False
+
+def _get_onnx_session():
+    global _onnx_session, _onnx_load_attempted
+    if not _onnx_load_attempted:
+        _onnx_load_attempted = True
+        try:
+            import onnxruntime as ort
+            model_path = os.path.join(os.path.dirname(__file__), "models", "triage_mobilenet_v3_int8.onnx")
+            if os.path.exists(model_path):
+                _onnx_session = ort.InferenceSession(model_path)
+        except Exception:
+            pass
+    return _onnx_session
+
+
 def estimate_visual_severity(image: Image.Image) -> dict[str, Any]:
     """Deterministic visual severity estimator for offline demo triage.
 
     This is intentionally not a diagnostic model. It extracts explainable image
     statistics and maps them to a bounded 0-25 triage severity contribution.
     """
+    session = _get_onnx_session()
+    
+    if session:
+        try:
+            import numpy as np
+            rgb = image.convert("RGB").resize((224, 224))
+            img_array = np.array(rgb).astype(np.float32) / 255.0
+            
+            mean = np.array([0.485, 0.456, 0.406])
+            std = np.array([0.229, 0.224, 0.225])
+            img_array = (img_array - mean) / std
+            
+            img_array = np.transpose(img_array, (2, 0, 1))
+            img_array = np.expand_dims(img_array, axis=0).astype(np.float32)
+            
+            input_name = session.get_inputs()[0].name
+            output_name = session.get_outputs()[0].name
+            result = session.run([output_name], {input_name: img_array})
+            
+            raw_score = float(result[0][0][0])
+            scaled_score = int(round(25.0 / (1.0 + np.exp(-raw_score))))
+            
+            return {
+                "severity_score": _clamp(scaled_score, 0, 25),
+                "visual_features": {
+                    "onnx_inference": "success",
+                    "raw_logit": round(raw_score, 2),
+                },
+                "model_note": MODEL_NOTE,
+            }
+        except Exception:
+            pass
 
     try:
         rgb = image.convert("RGB").resize((256, 256))
@@ -54,6 +104,7 @@ def estimate_visual_severity(image: Image.Image) -> dict[str, Any]:
                 "contrast_std_dev": round(contrast, 2),
                 "red_channel_dominance": round(red_dominance, 2),
                 "image_entropy": round(entropy, 2),
+                "onnx_inference": "failed_or_missing",
             },
             "model_note": MODEL_NOTE,
         }
