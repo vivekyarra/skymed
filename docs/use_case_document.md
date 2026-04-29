@@ -55,7 +55,7 @@ Technical stack:
 | Area | Stack |
 | --- | --- |
 | Backend | FastAPI, SQLModel, SQLite, WebSocket live feed |
-| Triage | Transparent weighted rules plus deterministic image severity estimator |
+| Triage | Weighted vitals rules engine + INT8-quantized MobileNetV3-Small ONNX model for visual severity estimation (ImageNet pretrained; wound-specific fine-tuning in Phase 2) |
 | Frontend | React, TypeScript, Vite, Tailwind, Leaflet, Recharts |
 | Drone simulation | Waypoint interpolation, wind go/no-go, battery estimate |
 | Offline mode | Local Edge Mode toggle, local queue badge, animated district flush |
@@ -67,10 +67,12 @@ Impact model:
 
 | Input | Value |
 | --- | --- |
-| Tribal villages | 847 in Paderu ITDA [1] |
-| Average emergency cases | ~12 per village per month [2] |
-| P1 intervention gap | 30% [3] |
-| Potential critical interventions | 847 x 12 x 30% = about 3,049 per month |
+| Input | Value |
+| --- | --- |
+| Tribal habitations | 847 within Paderu ITDA jurisdiction [1] |
+| High-risk health events | ~12 per hamlet per month [2] |
+| P1 intervention gap | 28.3% [3] |
+| Potential critical interventions | 847 x 12 x 28.3% = about 2,874 per month |
 
 Cost-per-intervention comparison:
 
@@ -110,10 +112,10 @@ Contact and links:
 
 ## Data Sources & References
 
-1. **847 tribal villages**: Number of tribal hamlets in Paderu ITDA limits based on AP Tribal Welfare Department and 2011 Census Schedule V classifications.
-2. **~12 cases/month**: Derived from HMIS (Health Management Information System) rural AP emergency utilization rates estimating 0.04 emergency transports per capita per month.
-3. **30% P1 intervention gap**: Extrapolated from NFHS-5 Andhra Pradesh state factsheet indicating significant unmet need and transport delays for critical rural maternal/emergency care.
-4. **₹180 marginal mission cost**: Calculated as: Drone battery cycle cost (₹50) + standard payload cost (₹30) + localized operator time (₹100) per mission.
+1. **847 tribal habitations**: Habitations within Paderu ITDA jurisdiction per AP Tribal Welfare Department district census records (2011); figure pending verification against current ITDA habitation register.
+2. **~12 high-risk events/month**: Estimated monthly health events (fever with chills, severe diarrhea, high-risk pregnancy follow-ups, trauma) per 300-population hamlet, based on ASHA activity baselines and rural AP emergency transport utilization rates (HMIS 2022-23).
+3. **28.3% P1 intervention gap**: Based on the percentage of mothers who did NOT use an ambulance for delivery transport in rural Andhra Pradesh (Indicator 55, NFHS-5 State Factsheet).
+4. **₹180 marginal mission cost**: Breakdown: Drone battery cycle cost (₹50) + sterilized mission consumables/packaging (₹30) + localized operator time (₹100). Payload contents (EpiPens, kits) are pre-stocked at the hub by the health system and not included in marginal mission flight cost.
 5. **23% 4G coverage**: Estimate of fully connected Schedule V hamlets prior to ongoing Universal Service Obligation Fund (USOF) / Digital Bharat Nidhi 4G saturation tower rollouts in ASR district.
 
 Reference anchors for final submission packet:
