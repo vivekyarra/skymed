@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+sqlmodel
+pillow
+python-multipart
+websockets
+aiofiles

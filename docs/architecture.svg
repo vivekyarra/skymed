@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">SkyMed Three-Layer Architecture</title>
+  <desc id="desc">Three concentric rings showing Drone Edge, Village Mesh, and District Cloud with data flow arrows.</desc>
+  <defs>
+    <filter id="glowCyan" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="glowAmber" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <marker id="arrowCyan" markerWidth="14" markerHeight="14" refX="10" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,10 L12,5 z" fill="#00d4ff"/>
+    </marker>
+    <marker id="arrowAmber" markerWidth="14" markerHeight="14" refX="10" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,10 L12,5 z" fill="#ffb300"/>
+    </marker>
+    <marker id="arrowRed" markerWidth="14" markerHeight="14" refX="10" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,10 L12,5 z" fill="#ff1744"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="800" fill="#0a0f1e"/>
+  <circle cx="600" cy="400" r="330" fill="rgba(0,212,255,0.08)" stroke="#00d4ff" stroke-width="5" filter="url(#glowCyan)"/>
+  <circle cx="600" cy="400" r="235" fill="rgba(255,179,0,0.12)" stroke="#ffb300" stroke-width="5" filter="url(#glowAmber)"/>
+  <circle cx="600" cy="400" r="145" fill="rgba(255,23,68,0.14)" stroke="#ff1744" stroke-width="5"/>
+
+  <text x="600" y="78" text-anchor="middle" fill="#f9fafb" font-family="Arial, sans-serif" font-size="34" font-weight="900">SkyMed Command, Coordination, and Intelligence Layer</text>
+  <text x="600" y="116" text-anchor="middle" fill="#6b7280" font-family="Arial, sans-serif" font-size="20">Responsible Innovation for Inclusive Growth | APSCHE National Technology Day 2026</text>
+
+  <text x="600" y="185" text-anchor="middle" fill="#00d4ff" font-family="Arial, sans-serif" font-size="34" font-weight="900">DISTRICT CLOUD</text>
+  <text x="600" y="222" text-anchor="middle" fill="#f9fafb" font-family="Arial, sans-serif" font-size="22">AMTZ Doctor Dashboard</text>
+  <text x="600" y="251" text-anchor="middle" fill="#f9fafb" font-family="Arial, sans-serif" font-size="22">State Health Analytics</text>
+  <text x="600" y="280" text-anchor="middle" fill="#f9fafb" font-family="Arial, sans-serif" font-size="22">AES-256 Encrypted</text>
+
+  <text x="600" y="338" text-anchor="middle" fill="#ffb300" font-family="Arial, sans-serif" font-size="32" font-weight="900">VILLAGE MESH</text>
+  <text x="600" y="374" text-anchor="middle" fill="#f9fafb" font-family="Arial, sans-serif" font-size="21">LoRa P2P</text>
+  <text x="600" y="402" text-anchor="middle" fill="#f9fafb" font-family="Arial, sans-serif" font-size="21">Store &amp; Forward</text>
+  <text x="600" y="430" text-anchor="middle" fill="#f9fafb" font-family="Arial, sans-serif" font-size="21">ASHA Worker Tech Kit</text>
+
+  <text x="600" y="506" text-anchor="middle" fill="#ff1744" font-family="Arial, sans-serif" font-size="30" font-weight="900">DRONE EDGE</text>
+  <text x="600" y="540" text-anchor="middle" fill="#f9fafb" font-family="Arial, sans-serif" font-size="20">INT8 Triage Model</text>
+  <text x="600" y="567" text-anchor="middle" fill="#f9fafb" font-family="Arial, sans-serif" font-size="20">Offline First</text>
+  <text x="600" y="594" text-anchor="middle" fill="#f9fafb" font-family="Arial, sans-serif" font-size="20">Snapdragon NPU</text>
+
+  <g stroke-width="5" fill="none" stroke-linecap="round">
+    <path d="M494 522 C340 555 292 463 382 398" stroke="#ffb300" marker-end="url(#arrowAmber)"/>
+    <path d="M706 516 C884 548 908 430 802 363" stroke="#00d4ff" marker-end="url(#arrowCyan)"/>
+    <path d="M424 320 C330 205 462 138 560 166" stroke="#00d4ff" marker-end="url(#arrowCyan)"/>
+    <path d="M742 170 C870 182 900 298 787 338" stroke="#ff1744" marker-end="url(#arrowRed)"/>
+  </g>
+
+  <g font-family="Arial, sans-serif" font-size="18" font-weight="800">
+    <rect x="118" y="555" width="330" height="54" rx="8" fill="#111827" stroke="#ffb300"/>
+    <text x="283" y="589" text-anchor="middle" fill="#ffb300">Edge to Mesh: Triage packet</text>
+    <text x="283" y="631" text-anchor="middle" fill="#6b7280" font-size="15">LoRa, offline-capable</text>
+
+    <rect x="758" y="555" width="338" height="54" rx="8" fill="#111827" stroke="#00d4ff"/>
+    <text x="927" y="589" text-anchor="middle" fill="#00d4ff">Mesh to Cloud: Batch sync</text>
+    <text x="927" y="631" text-anchor="middle" fill="#6b7280" font-size="15">4G/VSAT when available</text>
+
+    <rect x="110" y="213" width="370" height="54" rx="8" fill="#111827" stroke="#00d4ff"/>
+    <text x="295" y="247" text-anchor="middle" fill="#00d4ff">Cloud to Drone: Dispatch command</text>
+    <text x="295" y="289" text-anchor="middle" fill="#6b7280" font-size="15">Doctor-confirmed only</text>
+
+    <rect x="792" y="238" width="336" height="54" rx="8" fill="#111827" stroke="#ff1744"/>
+    <text x="960" y="272" text-anchor="middle" fill="#ff1744">Drone to Edge: Payload delivery</text>
+    <text x="960" y="314" text-anchor="middle" fill="#6b7280" font-size="15">ASHA landing pad</text>
+  </g>
+
+  <g transform="translate(600 645)" stroke="#ff1744" stroke-width="5" fill="none">
+    <rect x="-45" y="-36" width="90" height="72" rx="10" fill="#111827"/>
+    <path d="M0 -22 V22 M-22 0 H22" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="-62" cy="-34" r="14" stroke="#00d4ff"/>
+    <circle cx="62" cy="-34" r="14" stroke="#00d4ff"/>
+    <circle cx="-62" cy="34" r="14" stroke="#00d4ff"/>
+    <circle cx="62" cy="34" r="14" stroke="#00d4ff"/>
+  </g>
+
+  <g transform="translate(330 385)" stroke="#ffb300" stroke-width="5" fill="none">
+    <circle cx="0" cy="0" r="18"/>
+    <circle cx="-45" cy="52" r="13"/>
+    <circle cx="45" cy="52" r="13"/>
+    <path d="M-12 14 L-36 43 M12 14 L36 43 M-32 52 H32"/>
+  </g>
+
+  <g transform="translate(865 370)" stroke="#00d4ff" stroke-width="5" fill="none">
+    <rect x="-43" y="-32" width="86" height="64" rx="9" fill="#111827"/>
+    <path d="M-24 0 H24 M0 -20 V20" stroke="#ff1744" stroke-width="7" stroke-linecap="round"/>
+  </g>
+</svg>

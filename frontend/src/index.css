@@ -1,0 +1,62 @@
+@import 'leaflet/dist/leaflet.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color: #f9fafb;
+  background: #0a0f1e;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: #0a0f1e;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+.leaflet-container {
+  background: #0a0f1e;
+  color: #111827;
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: #111827;
+  color: #f9fafb;
+  border: 1px solid rgba(0, 212, 255, 0.28);
+}
+
+.leaflet-control-attribution {
+  background: rgba(17, 24, 39, 0.84) !important;
+  color: #9ca3af !important;
+}
+
+@layer components {
+  .panel {
+    @apply border border-white/10 bg-surface/90 shadow-xl backdrop-blur;
+  }
+
+  .input-field {
+    @apply w-full rounded-md border border-white/10 bg-bg-primary px-3 py-2 text-sm text-text-primary outline-none transition focus:border-accent-cyan focus:ring-2 focus:ring-accent-cyan/20;
+  }
+
+  .label {
+    @apply mb-1 block text-xs font-semibold uppercase tracking-normal text-text-muted;
+  }
+
+  .badge {
+    @apply inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-semibold;
+  }
+}
