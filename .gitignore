@@ -5,3 +5,14 @@ __pycache__/
 *.log
 *.db
 .env
+.env.local
+.env.production
+.venv/
+venv/
+env/
+.vscode/
+.idea/
+build/
+.vercel/
+.railway/
+
