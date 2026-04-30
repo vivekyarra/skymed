@@ -1,98 +1,232 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
-  <title id="title">SkyMed Three-Layer Architecture</title>
-  <desc id="desc">Three concentric rings showing Drone Edge, Village Mesh, and District Cloud with data flow arrows.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+  <title id="title">SkyMed — Three-Ring Architecture</title>
+  <desc id="desc">Three concentric rings showing Drone Edge, Village Mesh, and District Cloud layers with data-flow arrows and component labels.</desc>
+
   <defs>
-    <filter id="glowCyan" x="-40%" y="-40%" width="180%" height="180%">
-      <feGaussianBlur stdDeviation="6" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
+    <!-- Glows -->
+    <filter id="gCyan" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-    <filter id="glowAmber" x="-40%" y="-40%" width="180%" height="180%">
-      <feGaussianBlur stdDeviation="5" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
+    <filter id="gAmber" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-    <marker id="arrowCyan" markerWidth="14" markerHeight="14" refX="10" refY="5" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L0,10 L12,5 z" fill="#00d4ff"/>
-    </marker>
-    <marker id="arrowAmber" markerWidth="14" markerHeight="14" refX="10" refY="5" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L0,10 L12,5 z" fill="#ffb300"/>
-    </marker>
-    <marker id="arrowRed" markerWidth="14" markerHeight="14" refX="10" refY="5" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L0,10 L12,5 z" fill="#ff1744"/>
-    </marker>
+    <filter id="gRed" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="gWhite" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <!-- Arrow markers -->
+    <marker id="aCyan" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8z" fill="#00d4ff"/></marker>
+    <marker id="aAmber" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8z" fill="#ffb300"/></marker>
+    <marker id="aRed" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8z" fill="#ff1744"/></marker>
+
+    <!-- Radial gradients for ring fills -->
+    <radialGradient id="rgOuter" cx="50%" cy="50%" r="50%">
+      <stop offset="70%" stop-color="transparent"/>
+      <stop offset="100%" stop-color="rgba(0,212,255,0.06)"/>
+    </radialGradient>
+    <radialGradient id="rgMid" cx="50%" cy="50%" r="50%">
+      <stop offset="65%" stop-color="transparent"/>
+      <stop offset="100%" stop-color="rgba(255,179,0,0.08)"/>
+    </radialGradient>
+    <radialGradient id="rgInner" cx="50%" cy="50%" r="50%">
+      <stop offset="60%" stop-color="transparent"/>
+      <stop offset="100%" stop-color="rgba(255,23,68,0.10)"/>
+    </radialGradient>
   </defs>
 
-  <rect width="1200" height="800" fill="#0a0f1e"/>
-  <circle cx="600" cy="400" r="330" fill="rgba(0,212,255,0.08)" stroke="#00d4ff" stroke-width="5" filter="url(#glowCyan)"/>
-  <circle cx="600" cy="400" r="235" fill="rgba(255,179,0,0.12)" stroke="#ffb300" stroke-width="5" filter="url(#glowAmber)"/>
-  <circle cx="600" cy="400" r="145" fill="rgba(255,23,68,0.14)" stroke="#ff1744" stroke-width="5"/>
+  <!-- ───────── Background ───────── -->
+  <rect width="1200" height="900" fill="#0a0f1e"/>
 
-  <text x="600" y="78" text-anchor="middle" fill="#f9fafb" font-family="Arial, sans-serif" font-size="34" font-weight="900">SkyMed Command, Coordination, and Intelligence Layer</text>
-  <text x="600" y="116" text-anchor="middle" fill="#6b7280" font-family="Arial, sans-serif" font-size="20">Responsible Innovation for Inclusive Growth | APSCHE National Technology Day 2026</text>
-
-  <text x="600" y="185" text-anchor="middle" fill="#00d4ff" font-family="Arial, sans-serif" font-size="34" font-weight="900">DISTRICT CLOUD</text>
-  <text x="600" y="222" text-anchor="middle" fill="#f9fafb" font-family="Arial, sans-serif" font-size="22">AMTZ Doctor Dashboard</text>
-  <text x="600" y="251" text-anchor="middle" fill="#f9fafb" font-family="Arial, sans-serif" font-size="22">State Health Analytics</text>
-  <text x="600" y="280" text-anchor="middle" fill="#f9fafb" font-family="Arial, sans-serif" font-size="22">AES-256 Encrypted</text>
-
-  <text x="600" y="338" text-anchor="middle" fill="#ffb300" font-family="Arial, sans-serif" font-size="32" font-weight="900">VILLAGE MESH</text>
-  <text x="600" y="374" text-anchor="middle" fill="#f9fafb" font-family="Arial, sans-serif" font-size="21">LoRa P2P</text>
-  <text x="600" y="402" text-anchor="middle" fill="#f9fafb" font-family="Arial, sans-serif" font-size="21">Store &amp; Forward</text>
-  <text x="600" y="430" text-anchor="middle" fill="#f9fafb" font-family="Arial, sans-serif" font-size="21">ASHA Worker Tech Kit</text>
-
-  <text x="600" y="506" text-anchor="middle" fill="#ff1744" font-family="Arial, sans-serif" font-size="30" font-weight="900">DRONE EDGE</text>
-  <text x="600" y="540" text-anchor="middle" fill="#f9fafb" font-family="Arial, sans-serif" font-size="20">Vitals Rules + Visual Risk Proxy</text>
-  <text x="600" y="567" text-anchor="middle" fill="#f9fafb" font-family="Arial, sans-serif" font-size="20">Offline First</text>
-  <text x="600" y="594" text-anchor="middle" fill="#f9fafb" font-family="Arial, sans-serif" font-size="20">Snapdragon NPU</text>
-
-  <g stroke-width="5" fill="none" stroke-linecap="round">
-    <path d="M494 522 C340 555 292 463 382 398" stroke="#ffb300" marker-end="url(#arrowAmber)"/>
-    <path d="M706 516 C884 548 908 430 802 363" stroke="#00d4ff" marker-end="url(#arrowCyan)"/>
-    <path d="M424 320 C330 205 462 138 560 166" stroke="#00d4ff" marker-end="url(#arrowCyan)"/>
-    <path d="M742 170 C870 182 900 298 787 338" stroke="#ff1744" marker-end="url(#arrowRed)"/>
+  <!-- Subtle grid dots -->
+  <g fill="#1a2038" opacity="0.5">
+    <circle cx="100" cy="100" r="1.2"/><circle cx="200" cy="100" r="1.2"/><circle cx="300" cy="100" r="1.2"/><circle cx="400" cy="100" r="1.2"/>
+    <circle cx="500" cy="100" r="1.2"/><circle cx="600" cy="100" r="1.2"/><circle cx="700" cy="100" r="1.2"/><circle cx="800" cy="100" r="1.2"/>
+    <circle cx="900" cy="100" r="1.2"/><circle cx="1000" cy="100" r="1.2"/><circle cx="1100" cy="100" r="1.2"/>
+    <circle cx="100" cy="200" r="1.2"/><circle cx="200" cy="200" r="1.2"/><circle cx="300" cy="200" r="1.2"/><circle cx="400" cy="200" r="1.2"/>
+    <circle cx="500" cy="200" r="1.2"/><circle cx="600" cy="200" r="1.2"/><circle cx="700" cy="200" r="1.2"/><circle cx="800" cy="200" r="1.2"/>
+    <circle cx="900" cy="200" r="1.2"/><circle cx="1000" cy="200" r="1.2"/><circle cx="1100" cy="200" r="1.2"/>
+    <circle cx="100" cy="800" r="1.2"/><circle cx="200" cy="800" r="1.2"/><circle cx="300" cy="800" r="1.2"/><circle cx="400" cy="800" r="1.2"/>
+    <circle cx="500" cy="800" r="1.2"/><circle cx="600" cy="800" r="1.2"/><circle cx="700" cy="800" r="1.2"/><circle cx="800" cy="800" r="1.2"/>
+    <circle cx="900" cy="800" r="1.2"/><circle cx="1000" cy="800" r="1.2"/><circle cx="1100" cy="800" r="1.2"/>
   </g>
 
-  <g font-family="Arial, sans-serif" font-size="18" font-weight="800">
-    <rect x="118" y="555" width="330" height="54" rx="8" fill="#111827" stroke="#ffb300"/>
-    <text x="283" y="589" text-anchor="middle" fill="#ffb300">Edge to Mesh: Triage packet</text>
-    <text x="283" y="631" text-anchor="middle" fill="#6b7280" font-size="15">LoRa, offline-capable</text>
+  <!-- ───────── Title ───────── -->
+  <text x="600" y="52" text-anchor="middle" fill="#f0f4f8" font-family="'Segoe UI',system-ui,sans-serif" font-size="28" font-weight="800" letter-spacing="1">SKYMED  ·  THREE-RING  ARCHITECTURE</text>
+  <text x="600" y="80" text-anchor="middle" fill="#4b5563" font-family="'Segoe UI',system-ui,sans-serif" font-size="14" letter-spacing="2">COMMAND · COORDINATION · INTELLIGENCE</text>
 
-    <rect x="758" y="555" width="338" height="54" rx="8" fill="#111827" stroke="#00d4ff"/>
-    <text x="927" y="589" text-anchor="middle" fill="#00d4ff">Mesh to Cloud: Batch sync</text>
-    <text x="927" y="631" text-anchor="middle" fill="#6b7280" font-size="15">4G/VSAT when available</text>
+  <!-- ───────── Ring 3 — District Cloud (outermost) ───────── -->
+  <circle cx="600" cy="460" r="340" fill="url(#rgOuter)" stroke="#00d4ff" stroke-width="2.5" stroke-dasharray="12 6" filter="url(#gCyan)" opacity="0.85"/>
+  <text x="600" y="160" text-anchor="middle" fill="#00d4ff" font-family="'Segoe UI',system-ui,sans-serif" font-size="13" font-weight="700" letter-spacing="4">LAYER 3</text>
+  <text x="600" y="182" text-anchor="middle" fill="#00d4ff" font-family="'Segoe UI',system-ui,sans-serif" font-size="22" font-weight="800" letter-spacing="2">DISTRICT CLOUD</text>
 
-    <rect x="110" y="213" width="370" height="54" rx="8" fill="#111827" stroke="#00d4ff"/>
-    <text x="295" y="247" text-anchor="middle" fill="#00d4ff">Cloud to Drone: Dispatch command</text>
-    <text x="295" y="289" text-anchor="middle" fill="#6b7280" font-size="15">Doctor-confirmed only</text>
-
-    <rect x="792" y="238" width="336" height="54" rx="8" fill="#111827" stroke="#ff1744"/>
-    <text x="960" y="272" text-anchor="middle" fill="#ff1744">Drone to Edge: Payload delivery</text>
-    <text x="960" y="314" text-anchor="middle" fill="#6b7280" font-size="15">ASHA landing pad</text>
+  <!-- Cloud layer detail chips — positioned in outer ring band, top area -->
+  <g font-family="'Segoe UI',system-ui,sans-serif" font-size="11" font-weight="600">
+    <rect x="410" y="198" width="145" height="26" rx="13" fill="#0d1829" stroke="#00d4ff" stroke-width="1" opacity="0.8"/>
+    <text x="482" y="216" text-anchor="middle" fill="#7dd3fc">AMTZ Dashboard</text>
+    <rect x="570" y="198" width="150" height="26" rx="13" fill="#0d1829" stroke="#00d4ff" stroke-width="1" opacity="0.8"/>
+    <text x="645" y="216" text-anchor="middle" fill="#7dd3fc">Health Analytics</text>
+    <rect x="735" y="198" width="120" height="26" rx="13" fill="#0d1829" stroke="#00d4ff" stroke-width="1" opacity="0.8"/>
+    <text x="795" y="216" text-anchor="middle" fill="#7dd3fc">AES-256</text>
   </g>
 
-  <g transform="translate(600 645)" stroke="#ff1744" stroke-width="5" fill="none">
-    <rect x="-45" y="-36" width="90" height="72" rx="10" fill="#111827"/>
-    <path d="M0 -22 V22 M-22 0 H22" stroke-width="7" stroke-linecap="round"/>
-    <circle cx="-62" cy="-34" r="14" stroke="#00d4ff"/>
-    <circle cx="62" cy="-34" r="14" stroke="#00d4ff"/>
-    <circle cx="-62" cy="34" r="14" stroke="#00d4ff"/>
-    <circle cx="62" cy="34" r="14" stroke="#00d4ff"/>
+  <!-- ───────── Ring 2 — Village Mesh ───────── -->
+  <circle cx="600" cy="460" r="230" fill="url(#rgMid)" stroke="#ffb300" stroke-width="2.5" stroke-dasharray="8 5" filter="url(#gAmber)" opacity="0.85"/>
+  <text x="600" y="268" text-anchor="middle" fill="#ffb300" font-family="'Segoe UI',system-ui,sans-serif" font-size="12" font-weight="700" letter-spacing="4">LAYER 2</text>
+  <text x="600" y="290" text-anchor="middle" fill="#ffb300" font-family="'Segoe UI',system-ui,sans-serif" font-size="19" font-weight="800" letter-spacing="2">VILLAGE MESH</text>
+
+  <!-- Mesh layer detail chips — positioned in mid-ring band -->
+  <g font-family="'Segoe UI',system-ui,sans-serif" font-size="11" font-weight="600">
+    <rect x="440" y="304" width="105" height="24" rx="12" fill="#111827" stroke="#ffb300" stroke-width="1" opacity="0.8"/>
+    <text x="492" y="321" text-anchor="middle" fill="#fcd34d">LoRa P2P</text>
+    <rect x="558" y="304" width="140" height="24" rx="12" fill="#111827" stroke="#ffb300" stroke-width="1" opacity="0.8"/>
+    <text x="628" y="321" text-anchor="middle" fill="#fcd34d">Store &amp; Forward</text>
+    <rect x="712" y="304" width="100" height="24" rx="12" fill="#111827" stroke="#ffb300" stroke-width="1" opacity="0.8"/>
+    <text x="762" y="321" text-anchor="middle" fill="#fcd34d">No PII</text>
   </g>
 
-  <g transform="translate(330 385)" stroke="#ffb300" stroke-width="5" fill="none">
-    <circle cx="0" cy="0" r="18"/>
-    <circle cx="-45" cy="52" r="13"/>
-    <circle cx="45" cy="52" r="13"/>
-    <path d="M-12 14 L-36 43 M12 14 L36 43 M-32 52 H32"/>
+  <!-- ───────── Ring 1 — Drone Edge (innermost) ───────── -->
+  <circle cx="600" cy="460" r="120" fill="url(#rgInner)" stroke="#ff1744" stroke-width="2.5" filter="url(#gRed)" opacity="0.9"/>
+  <text x="600" y="400" text-anchor="middle" fill="#ff1744" font-family="'Segoe UI',system-ui,sans-serif" font-size="11" font-weight="700" letter-spacing="4">LAYER 1</text>
+  <text x="600" y="422" text-anchor="middle" fill="#ff1744" font-family="'Segoe UI',system-ui,sans-serif" font-size="17" font-weight="800" letter-spacing="2">DRONE EDGE</text>
+
+  <!-- Edge layer detail chips — inside inner ring -->
+  <g font-family="'Segoe UI',system-ui,sans-serif" font-size="10" font-weight="600">
+    <rect x="534" y="436" width="132" height="22" rx="11" fill="#111827" stroke="#ff1744" stroke-width="1" opacity="0.8"/>
+    <text x="600" y="451" text-anchor="middle" fill="#ff8a80">Vitals Rules Engine</text>
+    <rect x="540" y="465" width="120" height="22" rx="11" fill="#111827" stroke="#ff1744" stroke-width="1" opacity="0.8"/>
+    <text x="600" y="480" text-anchor="middle" fill="#ff8a80">Offline First</text>
+    <rect x="543" y="494" width="114" height="22" rx="11" fill="#111827" stroke="#ff1744" stroke-width="1" opacity="0.8"/>
+    <text x="600" y="509" text-anchor="middle" fill="#ff8a80">Telugu UI</text>
   </g>
 
-  <g transform="translate(865 370)" stroke="#00d4ff" stroke-width="5" fill="none">
-    <rect x="-43" y="-32" width="86" height="64" rx="9" fill="#111827"/>
-    <path d="M-24 0 H24 M0 -20 V20" stroke="#ff1744" stroke-width="7" stroke-linecap="round"/>
+  <!-- ───────── Data Flow Arrows ───────── -->
+  <g fill="none" stroke-width="2.5" stroke-linecap="round">
+    <!-- Edge → Mesh (left side, going outward) -->
+    <path d="M510 490 C400 530 370 470 410 400" stroke="#ffb300" stroke-dasharray="6 3" marker-end="url(#aAmber)"/>
+    <!-- Mesh → Cloud (right side, going outward) -->
+    <path d="M700 430 C830 400 860 340 810 280" stroke="#00d4ff" stroke-dasharray="6 3" marker-end="url(#aCyan)"/>
+    <!-- Cloud → Edge (left-top, dispatch command) -->
+    <path d="M390 260 C310 340 350 420 480 440" stroke="#00d4ff" stroke-dasharray="6 3" marker-end="url(#aCyan)"/>
+    <!-- Drone delivery (right-bottom) -->
+    <path d="M720 490 C830 520 870 470 830 400" stroke="#ff1744" stroke-dasharray="6 3" marker-end="url(#aRed)"/>
+  </g>
+
+  <!-- ───────── Flow Labels ───────── -->
+  <g font-family="'Segoe UI',system-ui,sans-serif">
+    <!-- Label 1: Edge → Mesh -->
+    <rect x="68" y="470" width="260" height="56" rx="8" fill="#0d1829" stroke="#ffb300" stroke-width="1.5" opacity="0.95"/>
+    <text x="198" y="494" text-anchor="middle" fill="#ffb300" font-size="13" font-weight="700">EDGE → MESH</text>
+    <text x="198" y="514" text-anchor="middle" fill="#9ca3af" font-size="11">Triage packet · LoRa · Offline-capable</text>
+
+    <!-- Label 2: Mesh → Cloud -->
+    <rect x="876" y="240" width="260" height="56" rx="8" fill="#0d1829" stroke="#00d4ff" stroke-width="1.5" opacity="0.95"/>
+    <text x="1006" y="264" text-anchor="middle" fill="#00d4ff" font-size="13" font-weight="700">MESH → CLOUD</text>
+    <text x="1006" y="284" text-anchor="middle" fill="#9ca3af" font-size="11">Batch sync · 4G / VSAT when available</text>
+
+    <!-- Label 3: Cloud → Drone -->
+    <rect x="68" y="232" width="270" height="56" rx="8" fill="#0d1829" stroke="#00d4ff" stroke-width="1.5" opacity="0.95"/>
+    <text x="203" y="256" text-anchor="middle" fill="#00d4ff" font-size="13" font-weight="700">CLOUD → DRONE</text>
+    <text x="203" y="276" text-anchor="middle" fill="#9ca3af" font-size="11">Dispatch command · Doctor-confirmed only</text>
+
+    <!-- Label 4: Drone → Landing Pad -->
+    <rect x="876" y="470" width="260" height="56" rx="8" fill="#0d1829" stroke="#ff1744" stroke-width="1.5" opacity="0.95"/>
+    <text x="1006" y="494" text-anchor="middle" fill="#ff1744" font-size="13" font-weight="700">DRONE → LANDING PAD</text>
+    <text x="1006" y="514" text-anchor="middle" fill="#9ca3af" font-size="11">Payload delivery · ASHA Worker</text>
+  </g>
+
+  <!-- ───────── Icons ───────── -->
+
+  <!-- Drone icon (bottom center) -->
+  <g transform="translate(600 620)">
+    <rect x="-28" y="-22" width="56" height="44" rx="6" fill="#111827" stroke="#ff1744" stroke-width="2"/>
+    <path d="M0 -12 V12 M-14 0 H14" stroke="#ff1744" stroke-width="3.5" stroke-linecap="round"/>
+    <circle cx="-38" cy="-20" r="8" fill="none" stroke="#00d4ff" stroke-width="1.5"/>
+    <circle cx="38" cy="-20" r="8" fill="none" stroke="#00d4ff" stroke-width="1.5"/>
+    <circle cx="-38" cy="20" r="8" fill="none" stroke="#00d4ff" stroke-width="1.5"/>
+    <circle cx="38" cy="20" r="8" fill="none" stroke="#00d4ff" stroke-width="1.5"/>
+    <line x1="-28" y1="-22" x2="-38" y2="-20" stroke="#374151" stroke-width="1.5"/>
+    <line x1="28" y1="-22" x2="38" y2="-20" stroke="#374151" stroke-width="1.5"/>
+    <line x1="-28" y1="22" x2="-38" y2="20" stroke="#374151" stroke-width="1.5"/>
+    <line x1="28" y1="22" x2="38" y2="20" stroke="#374151" stroke-width="1.5"/>
+  </g>
+  <text x="600" y="660" text-anchor="middle" fill="#6b7280" font-family="'Segoe UI',system-ui,sans-serif" font-size="10" font-weight="600" letter-spacing="1.5">VTOL DRONE</text>
+
+  <!-- ASHA Worker icon (left of mesh ring) -->
+  <g transform="translate(310 460)">
+    <circle cx="0" cy="-14" r="10" fill="none" stroke="#ffb300" stroke-width="2"/>
+    <path d="M0 -4 V18 M-12 6 H12 M-8 30 L0 18 L8 30" fill="none" stroke="#ffb300" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="310" y="506" text-anchor="middle" fill="#6b7280" font-family="'Segoe UI',system-ui,sans-serif" font-size="10" font-weight="600" letter-spacing="1.5">ASHA WORKER</text>
+
+  <!-- Doctor/Dashboard icon (right of cloud ring) -->
+  <g transform="translate(890 370)">
+    <rect x="-22" y="-16" width="44" height="32" rx="4" fill="#111827" stroke="#00d4ff" stroke-width="2"/>
+    <path d="M-12 0 H12 M0 -10 V10" stroke="#00d4ff" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+  <text x="890" y="404" text-anchor="middle" fill="#6b7280" font-family="'Segoe UI',system-ui,sans-serif" font-size="10" font-weight="600" letter-spacing="1.5">AMTZ DOCTOR</text>
+
+  <!-- ───────── Patient Journey — bottom strip ───────── -->
+  <rect x="60" y="720" width="1080" height="62" rx="10" fill="#0d1829" stroke="#1e293b" stroke-width="1"/>
+
+  <g font-family="'Segoe UI',system-ui,sans-serif" text-anchor="middle">
+    <!-- Step dots + labels -->
+    <circle cx="150" cy="745" r="12" fill="#ff1744" opacity="0.9"/><text x="150" y="749" fill="#fff" font-size="10" font-weight="700">1</text>
+    <text x="150" y="770" fill="#d1d5db" font-size="9.5">Vitals Capture</text>
+
+    <line x1="162" y1="745" x2="228" y2="745" stroke="#374151" stroke-width="1.5" stroke-dasharray="4 2"/>
+
+    <circle cx="240" cy="745" r="12" fill="#ff1744" opacity="0.9"/><text x="240" y="749" fill="#fff" font-size="10" font-weight="700">2</text>
+    <text x="240" y="770" fill="#d1d5db" font-size="9.5">Edge Triage</text>
+
+    <line x1="252" y1="745" x2="348" y2="745" stroke="#374151" stroke-width="1.5" stroke-dasharray="4 2"/>
+
+    <circle cx="360" cy="745" r="12" fill="#ffb300" opacity="0.9"/><text x="360" y="749" fill="#0a0f1e" font-size="10" font-weight="700">3</text>
+    <text x="360" y="770" fill="#d1d5db" font-size="9.5">LoRa Relay</text>
+
+    <line x1="372" y1="745" x2="468" y2="745" stroke="#374151" stroke-width="1.5" stroke-dasharray="4 2"/>
+
+    <circle cx="480" cy="745" r="12" fill="#ffb300" opacity="0.9"/><text x="480" y="749" fill="#0a0f1e" font-size="10" font-weight="700">4</text>
+    <text x="480" y="770" fill="#d1d5db" font-size="9.5">Mesh Forward</text>
+
+    <line x1="492" y1="745" x2="588" y2="745" stroke="#374151" stroke-width="1.5" stroke-dasharray="4 2"/>
+
+    <circle cx="600" cy="745" r="12" fill="#00d4ff" opacity="0.9"/><text x="600" y="749" fill="#0a0f1e" font-size="10" font-weight="700">5</text>
+    <text x="600" y="770" fill="#d1d5db" font-size="9.5">Doctor Review</text>
+
+    <line x1="612" y1="745" x2="708" y2="745" stroke="#374151" stroke-width="1.5" stroke-dasharray="4 2"/>
+
+    <circle cx="720" cy="745" r="12" fill="#00d4ff" opacity="0.9"/><text x="720" y="749" fill="#0a0f1e" font-size="10" font-weight="700">6</text>
+    <text x="720" y="770" fill="#d1d5db" font-size="9.5">Dispatch</text>
+
+    <line x1="732" y1="745" x2="828" y2="745" stroke="#374151" stroke-width="1.5" stroke-dasharray="4 2"/>
+
+    <circle cx="840" cy="745" r="12" fill="#10b981" opacity="0.9"/><text x="840" y="749" fill="#fff" font-size="10" font-weight="700">7</text>
+    <text x="840" y="770" fill="#d1d5db" font-size="9.5">Drone Flight</text>
+
+    <line x1="852" y1="745" x2="948" y2="745" stroke="#374151" stroke-width="1.5" stroke-dasharray="4 2"/>
+
+    <circle cx="960" cy="745" r="12" fill="#10b981" opacity="0.9"/><text x="960" y="749" fill="#fff" font-size="10" font-weight="700">8</text>
+    <text x="960" y="770" fill="#d1d5db" font-size="9.5">ASHA Delivers</text>
+
+    <line x1="972" y1="745" x2="1038" y2="745" stroke="#374151" stroke-width="1.5" stroke-dasharray="4 2"/>
+
+    <circle cx="1050" cy="745" r="14" fill="#10b981" opacity="0.9"/><text x="1050" y="749" fill="#fff" font-size="10" font-weight="700">✓</text>
+    <text x="1050" y="770" fill="#d1d5db" font-size="9.5">Golden Hour</text>
+  </g>
+
+  <!-- Journey strip label -->
+  <text x="60" y="716" fill="#4b5563" font-family="'Segoe UI',system-ui,sans-serif" font-size="10" font-weight="600" letter-spacing="3">PATIENT JOURNEY</text>
+
+  <!-- ───────── Footer ───────── -->
+  <text x="600" y="830" text-anchor="middle" fill="#374151" font-family="'Segoe UI',system-ui,sans-serif" font-size="11" letter-spacing="1">APSCHE National Technology Day 2026 · Responsible Innovation for Inclusive Growth</text>
+  <text x="600" y="852" text-anchor="middle" fill="#1e293b" font-family="'Segoe UI',system-ui,sans-serif" font-size="10" letter-spacing="1">Amaravati Vigyan Puraskar · Vivek Yarra · Vignan's LARA Institute of Technology &amp; Science</text>
+
+  <!-- ───────── Key principle — bottom right ───────── -->
+  <g transform="translate(1060 850)">
+    <text x="0" y="0" text-anchor="end" fill="#374151" font-family="'Segoe UI',system-ui,sans-serif" font-size="9" font-style="italic">No autonomous dispatch. Ever.</text>
+    <text x="0" y="14" text-anchor="end" fill="#374151" font-family="'Segoe UI',system-ui,sans-serif" font-size="9" font-style="italic">The human is always the final authority.</text>
   </g>
 </svg>
