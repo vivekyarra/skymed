@@ -2,55 +2,156 @@ import { Cpu, HeartHandshake, Network, Plane, ShieldCheck, Users } from 'lucide-
 
 function ArchitectureDiagram() {
   return (
-    <svg viewBox="0 0 1200 800" className="w-full rounded-md border border-white/10 bg-bg-primary" role="img" aria-label="SkyMed three layer architecture">
-      <rect width="1200" height="800" fill="#0a0f1e" />
-      <circle cx="600" cy="400" r="305" fill="rgba(0,212,255,.08)" stroke="#00d4ff" strokeWidth="4" />
-      <circle cx="600" cy="400" r="220" fill="rgba(255,179,0,.10)" stroke="#ffb300" strokeWidth="4" />
-      <circle cx="600" cy="400" r="135" fill="rgba(255,23,68,.12)" stroke="#ff1744" strokeWidth="4" />
-
-      <text x="600" y="108" textAnchor="middle" fill="#00d4ff" fontSize="30" fontWeight="900">DISTRICT CLOUD</text>
-      <text x="600" y="156" textAnchor="middle" fill="#f9fafb" fontSize="20">AMTZ Doctor Dashboard | State Health Analytics | AES-256 Encrypted</text>
-
-      <text x="600" y="225" textAnchor="middle" fill="#ffb300" fontSize="28" fontWeight="900">VILLAGE MESH</text>
-      <text x="600" y="263" textAnchor="middle" fill="#f9fafb" fontSize="19">LoRa P2P | Store &amp; Forward | ASHA Worker Tech Kit</text>
-
-      <text x="600" y="380" textAnchor="middle" fill="#ff1744" fontSize="27" fontWeight="900">DRONE EDGE</text>
-      <text x="600" y="417" textAnchor="middle" fill="#f9fafb" fontSize="18">Vitals Rules + Visual Risk Proxy | Offline First</text>
-
-      <g fill="none" strokeLinecap="round" strokeWidth="4">
-        <path d="M420 430 C300 500 300 615 460 662" stroke="#ffb300" markerEnd="url(#arrow)" />
-        <path d="M740 660 C900 610 900 490 780 430" stroke="#00d4ff" markerEnd="url(#arrow)" />
-        <path d="M465 265 C365 190 445 110 555 130" stroke="#00d4ff" markerEnd="url(#arrow)" />
-        <path d="M735 130 C845 150 900 238 780 300" stroke="#ff1744" markerEnd="url(#arrow)" />
-      </g>
+    <svg viewBox="0 0 1200 900" className="w-full rounded-md border border-white/10 bg-bg-primary shadow-2xl" role="img" aria-label="SkyMed — Three-Ring Architecture">
       <defs>
-        <marker id="arrow" markerWidth="12" markerHeight="12" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
-          <path d="M0,0 L0,6 L9,3 z" fill="#f9fafb" />
-        </marker>
+        <filter id="gCyan" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="gAmber" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="gRed" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <marker id="aCyan" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8z" fill="#00d4ff"/></marker>
+        <marker id="aAmber" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8z" fill="#ffb300"/></marker>
+        <marker id="aRed" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8z" fill="#ff1744"/></marker>
+        <radialGradient id="rgOuter" cx="50%" cy="50%" r="50%">
+          <stop offset="70%" stopColor="transparent"/>
+          <stop offset="100%" stopColor="rgba(0,212,255,0.06)"/>
+        </radialGradient>
+        <radialGradient id="rgMid" cx="50%" cy="50%" r="50%">
+          <stop offset="65%" stopColor="transparent"/>
+          <stop offset="100%" stopColor="rgba(255,179,0,0.08)"/>
+        </radialGradient>
+        <radialGradient id="rgInner" cx="50%" cy="50%" r="50%">
+          <stop offset="60%" stopColor="transparent"/>
+          <stop offset="100%" stopColor="rgba(255,23,68,0.10)"/>
+        </radialGradient>
       </defs>
 
-      <g fill="#f9fafb" fontSize="16" fontWeight="700">
-        <text x="170" y="565">Edge to Mesh: triage packet</text>
-        <text x="790" y="575">Mesh to Cloud: batch sync</text>
-        <text x="205" y="185">Cloud to Drone: doctor-confirmed command</text>
-        <text x="805" y="220">Drone to Edge: landing pad payload delivery</text>
+      <rect width="1200" height="900" fill="#0a0f1e"/>
+
+      <g fill="#1a2038" opacity="0.5">
+        {[100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100].map(x => (
+          <g key={x}>
+            <circle cx={x} cy={100} r="1.2"/><circle cx={x} cy={200} r="1.2"/><circle cx={x} cy={800} r="1.2"/>
+          </g>
+        ))}
       </g>
 
-      <g transform="translate(560 470)">
-        <rect x="-42" y="-34" width="84" height="68" rx="10" fill="#111827" stroke="#ff1744" strokeWidth="4" />
-        <circle cx="0" cy="0" r="12" fill="none" stroke="#00d4ff" strokeWidth="4" />
-        <path d="M0 -21 V21 M-21 0 H21" stroke="#ff1744" strokeWidth="5" />
+      <text x="600" y="52" textAnchor="middle" fill="#f0f4f8" fontFamily="system-ui,sans-serif" fontSize="28" fontWeight="800" letterSpacing="1">SKYMED  ·  THREE-RING  ARCHITECTURE</text>
+      <text x="600" y="80" textAnchor="middle" fill="#4b5563" fontFamily="system-ui,sans-serif" fontSize="14" letterSpacing="2">COMMAND · COORDINATION · INTELLIGENCE</text>
+
+      <circle cx="600" cy="460" r="340" fill="url(#rgOuter)" stroke="#00d4ff" strokeWidth="2.5" strokeDasharray="12 6" filter="url(#gCyan)" opacity="0.85"/>
+      <text x="600" y="160" textAnchor="middle" fill="#00d4ff" fontFamily="system-ui,sans-serif" fontSize="13" fontWeight="700" letterSpacing="4">LAYER 3</text>
+      <text x="600" y="182" textAnchor="middle" fill="#00d4ff" fontFamily="system-ui,sans-serif" fontSize="22" fontWeight="800" letterSpacing="2">DISTRICT CLOUD</text>
+
+      <g fontFamily="system-ui,sans-serif" fontSize="11" fontWeight="600">
+        <rect x="410" y="198" width="145" height="26" rx="13" fill="#0d1829" stroke="#00d4ff" strokeWidth="1" opacity="0.8"/>
+        <text x="482" y="216" textAnchor="middle" fill="#7dd3fc">AMTZ Dashboard</text>
+        <rect x="570" y="198" width="150" height="26" rx="13" fill="#0d1829" stroke="#00d4ff" strokeWidth="1" opacity="0.8"/>
+        <text x="645" y="216" textAnchor="middle" fill="#7dd3fc">Health Analytics</text>
+        <rect x="735" y="198" width="120" height="26" rx="13" fill="#0d1829" stroke="#00d4ff" strokeWidth="1" opacity="0.8"/>
+        <text x="795" y="216" textAnchor="middle" fill="#7dd3fc">AES-256</text>
       </g>
-      <g transform="translate(395 344)" fill="none" stroke="#ffb300" strokeWidth="5">
-        <circle cx="0" cy="0" r="16" />
-        <circle cx="-38" cy="44" r="12" />
-        <circle cx="44" cy="48" r="12" />
-        <path d="M-12 12 L-31 35 M13 12 L36 39 M-24 43 H32" />
+
+      <circle cx="600" cy="460" r="230" fill="url(#rgMid)" stroke="#ffb300" strokeWidth="2.5" strokeDasharray="8 5" filter="url(#gAmber)" opacity="0.85"/>
+      <text x="600" y="268" textAnchor="middle" fill="#ffb300" fontFamily="system-ui,sans-serif" fontSize="12" fontWeight="700" letterSpacing="4">LAYER 2</text>
+      <text x="600" y="290" textAnchor="middle" fill="#ffb300" fontFamily="system-ui,sans-serif" fontSize="19" fontWeight="800" letterSpacing="2">VILLAGE MESH</text>
+
+      <g fontFamily="system-ui,sans-serif" fontSize="11" fontWeight="600">
+        <rect x="440" y="304" width="105" height="24" rx="12" fill="#111827" stroke="#ffb300" strokeWidth="1" opacity="0.8"/>
+        <text x="492" y="321" textAnchor="middle" fill="#fcd34d">LoRa P2P</text>
+        <rect x="558" y="304" width="140" height="24" rx="12" fill="#111827" stroke="#ffb300" strokeWidth="1" opacity="0.8"/>
+        <text x="628" y="321" textAnchor="middle" fill="#fcd34d">Store &amp; Forward</text>
+        <rect x="712" y="304" width="100" height="24" rx="12" fill="#111827" stroke="#ffb300" strokeWidth="1" opacity="0.8"/>
+        <text x="762" y="321" textAnchor="middle" fill="#fcd34d">No PII</text>
       </g>
-      <g transform="translate(780 325)" fill="none" stroke="#00d4ff" strokeWidth="5">
-        <rect x="-36" y="-28" width="72" height="56" rx="8" />
-        <path d="M-20 0 H20 M0 -17 V17" stroke="#ff1744" strokeWidth="6" />
+
+      <circle cx="600" cy="460" r="120" fill="url(#rgInner)" stroke="#ff1744" strokeWidth="2.5" filter="url(#gRed)" opacity="0.9"/>
+      <text x="600" y="400" textAnchor="middle" fill="#ff1744" fontFamily="system-ui,sans-serif" fontSize="11" fontWeight="700" letterSpacing="4">LAYER 1</text>
+      <text x="600" y="422" textAnchor="middle" fill="#ff1744" fontFamily="system-ui,sans-serif" fontSize="17" fontWeight="800" letterSpacing="2">DRONE EDGE</text>
+
+      <g fontFamily="system-ui,sans-serif" fontSize="10" fontWeight="600">
+        <rect x="534" y="436" width="132" height="22" rx="11" fill="#111827" stroke="#ff1744" strokeWidth="1" opacity="0.8"/>
+        <text x="600" y="451" textAnchor="middle" fill="#ff8a80">Vitals Rules Engine</text>
+        <rect x="540" y="465" width="120" height="22" rx="11" fill="#111827" stroke="#ff1744" strokeWidth="1" opacity="0.8"/>
+        <text x="600" y="480" textAnchor="middle" fill="#ff8a80">Offline First</text>
+        <rect x="543" y="494" width="114" height="22" rx="11" fill="#111827" stroke="#ff1744" strokeWidth="1" opacity="0.8"/>
+        <text x="600" y="509" textAnchor="middle" fill="#ff8a80">Telugu UI</text>
       </g>
+
+      <g fill="none" strokeWidth="2.5" strokeLinecap="round">
+        <path d="M510 490 C400 530 370 470 410 400" stroke="#ffb300" strokeDasharray="6 3" markerEnd="url(#aAmber)"/>
+        <path d="M700 430 C830 400 860 340 810 280" stroke="#00d4ff" strokeDasharray="6 3" markerEnd="url(#aCyan)"/>
+        <path d="M390 260 C310 340 350 420 480 440" stroke="#00d4ff" strokeDasharray="6 3" markerEnd="url(#aCyan)"/>
+        <path d="M720 490 C830 520 870 470 830 400" stroke="#ff1744" strokeDasharray="6 3" markerEnd="url(#aRed)"/>
+      </g>
+
+      <g fontFamily="system-ui,sans-serif">
+        <rect x="68" y="470" width="260" height="56" rx="8" fill="#0d1829" stroke="#ffb300" strokeWidth="1.5" opacity="0.95"/>
+        <text x="198" y="494" textAnchor="middle" fill="#ffb300" fontSize="13" fontWeight="700">EDGE → MESH</text>
+        <text x="198" y="514" textAnchor="middle" fill="#9ca3af" fontSize="11">Triage packet · LoRa · Offline-capable</text>
+
+        <rect x="876" y="240" width="260" height="56" rx="8" fill="#0d1829" stroke="#00d4ff" strokeWidth="1.5" opacity="0.95"/>
+        <text x="1006" y="264" textAnchor="middle" fill="#00d4ff" fontSize="13" fontWeight="700">MESH → CLOUD</text>
+        <text x="1006" y="284" textAnchor="middle" fill="#9ca3af" fontSize="11">Batch sync · 4G / VSAT when available</text>
+
+        <rect x="68" y="232" width="270" height="56" rx="8" fill="#0d1829" stroke="#00d4ff" strokeWidth="1.5" opacity="0.95"/>
+        <text x="203" y="256" textAnchor="middle" fill="#00d4ff" fontSize="13" fontWeight="700">CLOUD → DRONE</text>
+        <text x="203" y="276" textAnchor="middle" fill="#9ca3af" fontSize="11">Dispatch command · Doctor-confirmed only</text>
+
+        <rect x="876" y="470" width="260" height="56" rx="8" fill="#0d1829" stroke="#ff1744" strokeWidth="1.5" opacity="0.95"/>
+        <text x="1006" y="494" textAnchor="middle" fill="#ff1744" fontSize="13" fontWeight="700">DRONE → LANDING PAD</text>
+        <text x="1006" y="514" textAnchor="middle" fill="#9ca3af" fontSize="11">Payload delivery · ASHA Worker</text>
+      </g>
+
+      <g transform="translate(600 620)">
+        <rect x="-28" y="-22" width="56" height="44" rx="6" fill="#111827" stroke="#ff1744" strokeWidth="2"/>
+        <path d="M0 -12 V12 M-14 0 H14" stroke="#ff1744" strokeWidth="3.5" strokeLinecap="round"/>
+        <circle cx="-38" cy="-20" r="8" fill="none" stroke="#00d4ff" strokeWidth="1.5"/>
+        <circle cx="38" cy="-20" r="8" fill="none" stroke="#00d4ff" strokeWidth="1.5"/>
+        <circle cx="-38" cy="20" r="8" fill="none" stroke="#00d4ff" strokeWidth="1.5"/>
+        <circle cx="38" cy="20" r="8" fill="none" stroke="#00d4ff" strokeWidth="1.5"/>
+      </g>
+      <text x="600" y="660" textAnchor="middle" fill="#6b7280" fontFamily="system-ui,sans-serif" fontSize="10" fontWeight="600" letterSpacing="1.5">VTOL DRONE</text>
+
+      <g transform="translate(310 460)">
+        <circle cx="0" cy="-14" r="10" fill="none" stroke="#ffb300" strokeWidth="2"/>
+        <path d="M0 -4 V18 M-12 6 H12 M-8 30 L0 18 L8 30" fill="none" stroke="#ffb300" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      </g>
+      <text x="310" y="506" textAnchor="middle" fill="#6b7280" fontFamily="system-ui,sans-serif" fontSize="10" fontWeight="600" letterSpacing="1.5">ASHA WORKER</text>
+
+      <g transform="translate(890 370)">
+        <rect x="-22" y="-16" width="44" height="32" rx="4" fill="#111827" stroke="#00d4ff" strokeWidth="2"/>
+        <path d="M-12 0 H12 M0 -10 V10" stroke="#00d4ff" strokeWidth="2.5" strokeLinecap="round"/>
+      </g>
+      <text x="890" y="404" textAnchor="middle" fill="#6b7280" fontFamily="system-ui,sans-serif" fontSize="10" fontWeight="600" letterSpacing="1.5">AMTZ DOCTOR</text>
+
+      <rect x="60" y="720" width="1080" height="62" rx="10" fill="#0d1829" stroke="#1e293b" strokeWidth="1"/>
+      <g fontFamily="system-ui,sans-serif" textAnchor="middle">
+        {[
+          {x: 150, n: '1', t: 'Vitals Capture'},
+          {x: 240, n: '2', t: 'Edge Triage'},
+          {x: 360, n: '3', t: 'LoRa Relay'},
+          {x: 480, n: '4', t: 'Mesh Forward'},
+          {x: 600, n: '5', t: 'Doctor Review'},
+          {x: 720, n: '6', t: 'Dispatch'},
+          {x: 840, n: '7', t: 'Drone Flight'},
+          {x: 960, n: '8', t: 'ASHA Delivers'},
+        ].map((s, i) => (
+          <g key={i}>
+            <circle cx={s.x} cy={745} r="12" fill={i < 2 ? '#ff1744' : i < 4 ? '#ffb300' : i < 6 ? '#00d4ff' : '#10b981'} opacity="0.9"/>
+            <text x={s.x} y={749} fill="#fff" fontSize="10" fontWeight="700">{s.n}</text>
+            <text x={s.x} y={770} fill="#d1d5db" fontSize="9.5">{s.t}</text>
+          </g>
+        ))}
+        <circle cx="1050" cy="745" r="14" fill="#10b981" opacity="0.9"/>
+        <text x="1050" y="749} fill="#fff" fontSize="10" fontWeight="700">✓</text>
+        <text x="1050" y="770} fill="#d1d5db" fontSize="9.5">Golden Hour</text>
+      </g>
+      <text x="60" y="716" fill="#4b5563" fontFamily="system-ui,sans-serif" fontSize="10" fontWeight="600" letterSpacing="3">PATIENT JOURNEY</text>
     </svg>
   );
 }
@@ -68,44 +169,46 @@ export default function About() {
           </h1>
           <p className="mt-5 max-w-3xl text-base leading-7 text-text-muted">
             SkyMed is the command, coordination, and intelligence software layer for a VTOL medical drone network.
-            It performs vitals-first triage priority scoring, coordinates doctor-confirmed dispatch, and relays telemetry between ASHA workers and AMTZ doctors.
+            It performs vitals-first triage priority scoring entirely offline, coordinates doctor-confirmed dispatch, and relays telemetry via a resilient LoRa mesh network.
           </p>
         </div>
       </section>
 
       <section className="grid gap-4 xl:grid-cols-2">
-        <div className="panel rounded-md p-5">
-          <h2 className="mb-3 text-xl font-black">The Problem</h2>
+        <div className="panel rounded-md p-5 shadow-lg border-white/5">
+          <h2 className="mb-3 text-xl font-black text-accent-cyan">The Problem</h2>
           <div className="space-y-3 text-sm leading-6 text-text-muted">
-            <p>Schedule V tribal areas face doctor scarcity, valley terrain, monsoon road disruption, and long emergency response times.</p>
-            <p>Planning assumptions for the pilot: one doctor per 10,000+ population in remote tribal service areas, average hospital distance of 47km in Alluri Sitarama Raju district, tribal maternal mortality risk around 2.3x the state average, and emergency response delays of 4-6 hours.</p>
+            <p>Schedule V tribal areas in Alluri Sitarama Raju district face acute doctor scarcity, rugged valley terrain, and monsoon road disruption.</p>
+            <p><strong>Crisis Metrics:</strong> 1 doctor per 10,000+ population, &lt;23% reliable 4G coverage, and emergency response delays averaging 4–6 hours. The "Golden Hour" is often missed due to geography.</p>
           </div>
         </div>
-        <div className="panel rounded-md p-5">
-          <h2 className="mb-3 text-xl font-black">Why Existing Solutions Fail</h2>
+        <div className="panel rounded-md p-5 shadow-lg border-white/5">
+          <h2 className="mb-3 text-xl font-black text-accent-amber">Why SkyMed?</h2>
           <ul className="space-y-3 text-sm leading-6 text-text-muted">
-            <li>No all-weather road access for ambulances during monsoon disruptions.</li>
-            <li>Valley terrain creates unreliable 4G coverage for cloud-only tools.</li>
-            <li>Remote postings struggle to retain enough doctors near every village.</li>
-            <li>Traditional drone software often assumes continuous cloud connectivity.</li>
+            <li className="flex gap-2"><span>🔴</span> <span><strong>Offline-First:</strong> Works in valleys where 4G disappears.</span></li>
+            <li className="flex gap-2"><span>🔴</span> <span><strong>ASHA-Anchored:</strong> Trusts the trusted local health link.</span></li>
+            <li className="flex gap-2"><span>🔴</span> <span><strong>Human-in-the-Loop:</strong> No autonomous dispatch. Doctor confirmed only.</span></li>
+            <li className="flex gap-2"><span>🔴</span> <span><strong>Rugged Tech:</strong> LoRa mesh store-and-forward ensures no case is lost.</span></li>
           </ul>
         </div>
       </section>
 
-      <section className="panel rounded-md p-5">
-        <h2 className="mb-4 text-xl font-black">SkyMed Solution: Three-Layer Architecture</h2>
-        <ArchitectureDiagram />
-        <div className="mt-4 grid gap-3 md:grid-cols-3">
+      <section className="panel rounded-md p-5 shadow-xl border-white/10">
+        <h2 className="mb-4 text-xl font-black text-white">Three-Ring Architecture</h2>
+        <div className="overflow-hidden rounded-lg bg-bg-primary/50 p-2">
+          <ArchitectureDiagram />
+        </div>
+        <div className="mt-6 grid gap-3 md:grid-cols-3">
           {[
-            { title: 'Layer 1: Drone Edge', body: 'Tablet runs vitals-first triage rules offline; image input is an explicit visual-risk proxy in this demo.', icon: Cpu, color: 'text-accent-red' },
-            { title: 'Layer 2: Village Mesh', body: 'LoRa mesh nodes store and forward structured packets without internet.', icon: Network, color: 'text-accent-amber' },
-            { title: 'Layer 3: District Cloud', body: 'AMTZ doctors review telemetry and confirm dispatch decisions.', icon: Plane, color: 'text-accent-cyan' },
+            { title: 'Layer 1: Drone Edge', body: 'Rugged tablet runs triage scoring offline. Telugu UI and Bluetooth vitals integration.', icon: Cpu, color: 'text-accent-red' },
+            { title: 'Layer 2: Village Mesh', body: 'LoRa gateway nodes store and forward compact packets when connectivity is intermittent.', icon: Network, color: 'text-accent-amber' },
+            { title: 'Layer 3: District Cloud', body: 'AMTZ Dashboard for doctor review, drone tracking, and state health analytics.', icon: Plane, color: 'text-accent-cyan' },
           ].map((item) => {
             const Icon = item.icon;
             return (
-              <div key={item.title} className="rounded-md border border-white/10 bg-bg-primary p-4">
+              <div key={item.title} className="rounded-md border border-white/10 bg-bg-primary p-4 transition-transform hover:scale-[1.02]">
                 <Icon className={`mb-3 h-6 w-6 ${item.color}`} />
-                <div className="font-black">{item.title}</div>
+                <div className="font-black text-white">{item.title}</div>
                 <p className="mt-2 text-sm leading-6 text-text-muted">{item.body}</p>
               </div>
             );
@@ -114,49 +217,48 @@ export default function About() {
       </section>
 
       <section className="grid gap-4 xl:grid-cols-2">
-        <div className="panel rounded-md p-5">
-          <h2 className="mb-3 text-xl font-black">Why Triage, Not Diagnosis</h2>
+        <div className="panel rounded-md p-5 shadow-lg border-white/5">
+          <h2 className="mb-3 text-xl font-black text-white">Responsible Innovation</h2>
           <div className="space-y-3 text-sm leading-6 text-text-muted">
-            <p>We do not replace doctors — we ensure doctors see the right patient first.</p>
-            <p>The app assigns a priority score; the human doctor makes all clinical decisions and must confirm dispatch.</p>
-            <p>The current demo does not include a validated wound severity classifier. Visual input is a transparent risk-cue proxy until pilot data supports a validated model.</p>
-            <p>The workflow is framed for NMC telemedicine guideline compatibility and DPDP Act 2023 aligned data handling: AES-256 encryption and no PII in mesh broadcast.</p>
+            <p><strong>Triage, Not Diagnosis:</strong> AI assigns urgency priority only. All clinical decisions stay with registered practitioners per NMC guidelines.</p>
+            <p><strong>Ethics by Design:</strong> DPDP Act 2023 aligned data minimization. No patient PII is broadcast over the LoRa mesh network.</p>
+            <p><strong>Honest Disclosure:</strong> Current demo uses a visual-risk proxy for symptom photos until clinical pilot data validates a medical model.</p>
           </div>
         </div>
-        <div className="panel rounded-md p-5">
-          <h2 className="mb-3 text-xl font-black">ASHA Worker Integration</h2>
+        <div className="panel rounded-md p-5 shadow-lg border-white/5">
+          <h2 className="mb-3 text-xl font-black text-white">ASHA Tech Kit</h2>
           <div className="space-y-3 text-sm leading-6 text-text-muted">
-            <p>We leverage India's greatest healthcare asset: 1 million ASHAs.</p>
-            <p>Zero new building infrastructure required: rugged Android tablet, solar plus power-bank charging, Bluetooth vitals peripherals, LoRa mesh relay, and pre-cleared 3x3m landing pad.</p>
-            <p>Telugu voice-guided UI, single large button workflow, and a 48h power resilience target for the ASHA Worker Tech Kit.</p>
+            <p>We leverage India's greatest asset: 1 million ASHAs. No new building infrastructure required.</p>
+            <p><strong>The Kit:</strong> Rugged Tablet + Solar Panel + BT Vitals (SpO2, BP, Temp) + LoRa Node. Budgeted at ₹35,000 per village vs ₹15 Lakh for a fixed booth.</p>
+            <p><strong>Operation:</strong> Telugu voice-guided UI, single large-button workflow, and 48h power resilience for disaster scenarios.</p>
           </div>
         </div>
       </section>
 
-      <section className="panel rounded-md p-5">
-        <h2 className="mb-4 text-xl font-black">Hardware Constraints</h2>
+      <section className="panel rounded-md p-5 shadow-xl border-white/10">
+        <h2 className="mb-4 text-xl font-black text-white">Payload & Mission Constraints</h2>
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">
-            <thead className="border-b border-white/10 text-xs uppercase tracking-normal text-text-muted">
+            <thead className="border-b border-white/10 text-xs uppercase tracking-wider text-text-muted">
               <tr>
-                <th className="py-3">Constraint</th>
-                <th className="py-3">Phase 1 Limit</th>
-                <th className="py-3">Rationale</th>
+                <th className="py-4">Constraint</th>
+                <th className="py-4">Phase 1 Limit</th>
+                <th className="py-4">Operational Rationale</th>
               </tr>
             </thead>
             <tbody className="text-text-muted">
               {[
-                ['Payload', '1.5kg max', 'Small VTOL medical delivery mission envelope'],
-                ['Range', 'VLOS under 450m from ASHA worker or trained operator', 'DGCA-aligned Phase 1 pilot scope'],
-                ['Wind', '8 m/s maximum', 'Go/no-go dispatch safety rule'],
-                ['Transport direction', 'Inbound therapeutics only', 'No infectious biological samples outbound'],
-                ['Payload type', 'Heat-stable items only', 'Cold-chain pod deferred to Phase 2'],
-                ['Operations', 'Phase 1 VLOS', 'BVLOS exemption application only after pilot evidence'],
+                ['Payload Mass', '1.5 kg maximum', 'Optimized for small VTOL medical delivery envelope'],
+                ['Range Scope', 'Phase 1 VLOS (<450m)', 'DGCA-aligned pilot scope with trained operators'],
+                ['Wind Ceiling', '8 m/s maximum', 'Automated go/no-go dispatch safety validation'],
+                ['Bio-Security', 'Inbound Only', 'No infectious biological samples outbound to prevent crash risk'],
+                ['Thermal Profile', 'Heat-stable only', 'Cold-chain insulated pods deferred to Phase 2'],
+                ['Authority', 'Doctor Confirmed', 'Strict human-in-the-loop; no autonomous dispatch ever'],
               ].map((row) => (
-                <tr key={row[0]} className="border-b border-white/5">
-                  <td className="py-3 font-bold text-text-primary">{row[0]}</td>
-                  <td className="py-3">{row[1]}</td>
-                  <td className="py-3">{row[2]}</td>
+                <tr key={row[0]} className="border-b border-white/5 transition-colors hover:bg-white/5">
+                  <td className="py-4 font-bold text-text-primary">{row[0]}</td>
+                  <td className="py-4 text-accent-cyan">{row[1]}</td>
+                  <td className="py-4 italic">{row[2]}</td>
                 </tr>
               ))}
             </tbody>
@@ -165,26 +267,34 @@ export default function About() {
       </section>
 
       <section className="grid gap-4 xl:grid-cols-2">
-        <div className="panel rounded-md p-5">
-          <h2 className="mb-4 text-xl font-black">Thematic Alignment</h2>
-          <div className="space-y-3 text-sm leading-6 text-text-muted">
-            <div><span className="font-black text-accent-cyan">AI & Electronics:</span> Edge triage priority scoring with an explicit visual-risk proxy.</div>
-            <div><span className="font-black text-accent-cyan">Space Tech & Drones:</span> VTOL coordination software.</div>
-            <div><span className="font-black text-accent-cyan">Medicine & Biotechnology:</span> ASHA-integrated care relay.</div>
-            <div>Honest scoping: SkyMed does not claim unrelated categories.</div>
+        <div className="panel rounded-md p-5 shadow-lg border-white/5">
+          <h2 className="mb-4 text-xl font-black text-white">Thematic Alignment</h2>
+          <div className="space-y-4 text-sm text-text-muted">
+            <div className="flex items-start gap-3">
+              <div className="rounded bg-accent-cyan/10 p-1 text-accent-cyan"><Cpu size={16} /></div>
+              <div><strong>AI & Electronics:</strong> Edge triage scoring on tablet with transparent visual-risk proxy.</div>
+            </div>
+            <div className="flex items-start gap-3">
+              <div className="rounded bg-accent-cyan/10 p-1 text-accent-cyan"><Plane size={16} /></div>
+              <div><strong>Space Tech & Drones:</strong> VTOL coordination and software command layer.</div>
+            </div>
+            <div className="flex items-start gap-3">
+              <div className="rounded bg-accent-cyan/10 p-1 text-accent-cyan"><HeartHandshake size={16} /></div>
+              <div><strong>Medicine & Biotech:</strong> ASHA-integrated care relay and doctor review workflow.</div>
+            </div>
           </div>
         </div>
-        <div className="panel rounded-md p-5">
-          <h2 className="mb-4 text-xl font-black">Roadmap</h2>
+        <div className="panel rounded-md p-5 shadow-lg border-white/5">
+          <h2 className="mb-4 text-xl font-black text-white">Roadmap</h2>
           <div className="space-y-3">
             {[
-              ['Phase 1 (0-3mo)', 'Software simulation + AMTZ MoU discussion'],
-              ['Phase 2 (3-9mo)', 'VLOS pilot, Paderu block, 3 villages, 3 drones'],
-              ['Phase 3 (9-18mo)', 'DGCA BVLOS exemption application + 13 districts'],
-              ['Phase 4 (18-36mo)', 'National replication, NHA partnership'],
+              ['Phase 1 (0-3mo)', 'Software simulation + AMTZ MoU discussion + Safety protocols'],
+              ['Phase 2 (3-9mo)', 'VLOS pilot in Paderu block (3 villages, 3 drones)'],
+              ['Phase 3 (9-18mo)', 'DGCA BVLOS exemption application + 13 tribal districts'],
+              ['Phase 4 (18-36mo)', 'National replication model and NHA partnership integration'],
             ].map(([phase, detail]) => (
-              <div key={phase} className="rounded-md border border-white/10 bg-bg-primary p-3">
-                <div className="font-black text-accent-cyan">{phase}</div>
+              <div key={phase} className="group rounded-md border border-white/10 bg-bg-primary p-3 transition-colors hover:border-accent-cyan/50">
+                <div className="font-black text-accent-cyan uppercase text-xs tracking-widest">{phase}</div>
                 <div className="mt-1 text-sm text-text-muted">{detail}</div>
               </div>
             ))}
@@ -192,25 +302,19 @@ export default function About() {
         </div>
       </section>
 
-      <section className="panel rounded-md p-5">
-        <h2 className="mb-4 text-xl font-black">Team</h2>
-        <div className="grid gap-3 md:grid-cols-3">
-          {[
-            { role: 'Software Architecture', icon: ShieldCheck },
-            { role: 'Clinical Workflow Review', icon: HeartHandshake },
-            { role: 'ASHA Field Operations', icon: Users },
-          ].map((item) => {
-            const Icon = item.icon;
-            return (
-              <div key={item.role} className="rounded-md border border-white/10 bg-bg-primary p-4">
-                <Icon className="mb-3 h-6 w-6 text-accent-cyan" />
-                <div className="font-black">{item.role}</div>
-                <div className="mt-1 text-sm text-text-muted">APSCHE NTD 2026 submission role</div>
-              </div>
-            );
-          })}
+      <footer className="mt-10 rounded-md border border-white/10 bg-bg-primary p-6 text-center">
+        <div className="flex justify-center gap-2 mb-4">
+          <ShieldCheck className="text-accent-cyan" />
+          <span className="font-black">Amaravati Vigyan Puraskar Submission</span>
         </div>
-      </section>
+        <p className="text-sm text-text-muted italic max-w-2xl mx-auto">
+          "SkyMed does not replace the doctor. It ensures the doctor sees the right patient first — before the patient runs out of time."
+        </p>
+        <div className="mt-6 text-xs text-text-muted uppercase tracking-widest">
+          Vivek Yarra · Vignan's LARA Institute · 2026
+        </div>
+      </footer>
     </div>
   );
 }
+
