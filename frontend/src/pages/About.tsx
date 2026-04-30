@@ -148,8 +148,8 @@ function ArchitectureDiagram() {
           </g>
         ))}
         <circle cx="1050" cy="745" r="14" fill="#10b981" opacity="0.9"/>
-        <text x="1050" y="749} fill="#fff" fontSize="10" fontWeight="700">✓</text>
-        <text x="1050" y="770} fill="#d1d5db" fontSize="9.5">Golden Hour</text>
+        <text x="1050" y="749" fill="#fff" fontSize="10" fontWeight="700">✓</text>
+        <text x="1050" y="770" fill="#d1d5db" fontSize="9.5">Golden Hour</text>
       </g>
       <text x="60" y="716" fill="#4b5563" fontFamily="system-ui,sans-serif" fontSize="10" fontWeight="600" letterSpacing="3">PATIENT JOURNEY</text>
     </svg>
