@@ -20,7 +20,7 @@ from models import Case, Mission, utc_now
 from seed_data import VILLAGE_COORDS, seed_database
 from mesh_engine import generate_mesh_status, simulate_packet_routing, run_mesh_heartbeat
 from triage_engine import CHIEF_COMPLAINTS, PAYLOAD_LABELS, PAYLOAD_WEIGHTS_KG, calculate_payload_weight, score_triage
-from triage_model import estimate_visual_severity
+from triage_model import estimate_visual_severity, get_visual_model_status
 
 
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./skymed.db")
@@ -125,12 +125,29 @@ def mission_to_public(mission: Mission) -> dict[str, Any]:
 def on_startup() -> None:
     SQLModel.metadata.create_all(engine)
     seed_database(engine)
+    visual_status = get_visual_model_status()
+    print(
+        "SkyMed visual triage mode: "
+        f"{visual_status['mode']} "
+        f"(ONNX present={visual_status['onnx_artifact_present']}, "
+        f"loaded={visual_status['onnx_loaded']})"
+    )
     asyncio.create_task(run_mesh_heartbeat())
 
 
 @app.get("/api/health")
 def health() -> dict[str, Any]:
-    return {"status": "ok", "service": "SkyMed Command API", "timestamp": utc_now().isoformat()}
+    return {
+        "status": "ok",
+        "service": "SkyMed Command API",
+        "timestamp": utc_now().isoformat(),
+        "visual_model": get_visual_model_status(),
+    }
+
+
+@app.get("/api/model/status")
+def visual_model_status() -> dict[str, Any]:
+    return get_visual_model_status()
 
 
 @app.post("/api/triage")

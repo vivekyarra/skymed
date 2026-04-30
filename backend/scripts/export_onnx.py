@@ -6,12 +6,13 @@ import torch.nn as nn
 from onnxruntime.quantization import quantize_dynamic, QuantType
 
 def export_model():
-    print("Loading pre-trained MobileNetV3-Small...")
+    print("Exporting MobileNetV3-Small architecture smoke-test artifact.")
+    print("WARNING: this is not a trained wound severity classifier and is not used by the app by default.")
     weights = MobileNet_V3_Small_Weights.DEFAULT
     model = models.mobilenet_v3_small(weights=weights)
     
-    # We adapt it for a single output node (severity score 0-25)
-    # The original has 1000 classes. We'll replace the classifier.
+    # Replace the ImageNet classifier only to verify ONNX plumbing. The new head
+    # is untrained, so this artifact must not be presented as a medical model.
     num_features = model.classifier[3].in_features
     model.classifier[3] = nn.Linear(num_features, 1)
     
@@ -22,7 +23,7 @@ def export_model():
     
     os.makedirs(os.path.join("..", "models"), exist_ok=True)
     temp_onnx = os.path.join("..", "models", "triage_mobilenet_v3_temp.onnx")
-    out_onnx = os.path.join("..", "models", "triage_mobilenet_v3_int8.onnx")
+    out_onnx = os.path.join("..", "models", "triage_mobilenet_v3_smoketest_int8.onnx")
 
     print(f"Exporting ONNX opset 12 to {temp_onnx}...")
     torch.onnx.export(
@@ -48,7 +49,8 @@ def export_model():
     if os.path.exists(temp_onnx):
         os.remove(temp_onnx)
         
-    print(f"Successfully generated {out_onnx}!")
+    print(f"Successfully generated {out_onnx}.")
+    print("Do not rename this to triage_mobilenet_v3_int8.onnx unless it is replaced with a trained, validated artifact.")
 
 if __name__ == "__main__":
     export_model()

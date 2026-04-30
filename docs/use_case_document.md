@@ -12,7 +12,7 @@ SkyMed uses a three-layer design.
 
 | Layer | Role | Why it exists |
 | --- | --- | --- |
-| Drone Edge | Rugged Android tablet runs an INT8 triage priority model offline and captures Bluetooth vitals. | The first decision must work without internet. |
+| Drone Edge | Rugged Android tablet runs vitals-first triage rules offline, with an explicit visual-risk proxy for symptom photos in this demo. | The first decision must work without internet. |
 | Village Mesh | LoRa relay node stores and forwards encrypted packets. | Valleys and monsoon conditions make cloud-only designs brittle. |
 | District Cloud | AMTZ doctor dashboard, drone dispatch coordination, and state health analytics. | Clinical decisions and public-health review stay with accountable humans. |
 
@@ -40,7 +40,7 @@ Why ASHA workers: India already has an ASHA-centered village health system, with
 2. ASHA opens SkyMed app: Telugu UI, voice-guided, single large buttons.
 3. Bluetooth vitals auto-capture: SpO2, HR, temperature, BP.
 4. ASHA takes photo of wound or symptom with tablet camera.
-5. App runs triage model locally on device, offline, no internet needed.
+5. App runs vitals-first triage scoring locally on device, offline, no internet needed; image input contributes a non-diagnostic visual-risk proxy only.
 6. Triage score calculated: P1, P2, or P3.
 7. If P1: alert auto-sent to nearest SkyMed mesh node via LoRa.
 8. Mesh node relays to district hub when connection available, using store-and-forward.
@@ -55,11 +55,13 @@ Technical stack:
 | Area | Stack |
 | --- | --- |
 | Backend | FastAPI, SQLModel, SQLite, WebSocket live feed |
-| Triage | Weighted vitals rules engine + INT8-quantized MobileNetV3-Small ONNX model for visual severity estimation (ImageNet pretrained; wound-specific fine-tuning in Phase 2) |
+| Triage | Weighted vitals rules engine + transparent visual-risk proxy. Optional ONNX loading is wired, but no trained wound severity classifier is bundled in this repo. |
 | Frontend | React, TypeScript, Vite, Tailwind, Leaflet, Recharts |
 | Drone simulation | Waypoint interpolation, wind go/no-go, battery estimate |
 | Offline mode | Local Edge Mode toggle, local queue badge, animated district flush |
 | Security posture | AES-256 encryption target, DPDP Act 2023 aligned minimization, no PII in mesh broadcast |
+
+Visual model disclosure: the current demo should not be described as a wound severity classifier. If `backend/models/triage_mobilenet_v3_int8.onnx` is absent, `/api/model/status` reports `visual_risk_proxy`; the proxy uses brightness, contrast, color balance, and image entropy as inspectable triage cues, pending pilot data and a validated model artifact.
 
 ## Page 4 — Impact & Strategic Alignment
 
@@ -67,12 +69,12 @@ Impact model:
 
 | Input | Value |
 | --- | --- |
-| Input | Value |
-| --- | --- |
 | Tribal habitations | 847 within Paderu ITDA jurisdiction [1] |
 | High-risk health events | ~12 per hamlet per month [2] |
-| P1 intervention gap | 28.3% [3] |
-| Potential critical interventions | 847 x 12 x 28.3% = about 2,874 per month |
+| P1 access-gap proxy | 28.3% [3] |
+| Potential P1 review opportunities | 847 x 12 x 28.3% = about 2,874 per month |
+
+Judge-ready impact response: "This is a proxy pending pilot data; we've been deliberately conservative."
 
 Cost-per-intervention comparison:
 
@@ -86,7 +88,7 @@ APSCHE thematic areas claimed honestly:
 
 | Theme | SkyMed alignment |
 | --- | --- |
-| AI & Electronics | Edge AI triage priority scoring on tablet |
+| AI & Electronics | Edge triage priority scoring on tablet with transparent visual-risk proxy |
 | Space Tech & Drones | VTOL dispatch and coordination software |
 | Medicine & Biotechnology | ASHA-integrated care relay and doctor review workflow |
 
@@ -114,7 +116,7 @@ Contact and links:
 
 1. **847 tribal habitations**: Habitations within Paderu ITDA jurisdiction per AP Tribal Welfare Department district census records (2011); figure pending verification against current ITDA habitation register.
 2. **~12 high-risk events/month**: Estimated monthly health events (fever with chills, severe diarrhea, high-risk pregnancy follow-ups, trauma) per 300-population hamlet, based on ASHA activity baselines and rural AP emergency transport utilization rates (HMIS 2022-23).
-3. **28.3% P1 intervention gap**: Based on the percentage of mothers who did NOT use an ambulance for delivery transport in rural Andhra Pradesh (Indicator 55, NFHS-5 State Factsheet).
+3. **28.3% P1 access-gap proxy**: Based on the percentage of mothers who did NOT use an ambulance for delivery transport in rural Andhra Pradesh (Indicator 55, NFHS-5 State Factsheet). This is a proxy pending SkyMed pilot data, not a measured P1 clinical gap.
 4. **₹180 marginal mission cost**: Breakdown: Drone battery cycle cost (₹50) + sterilized mission consumables/packaging (₹30) + localized operator time (₹100). Payload contents (EpiPens, kits) are pre-stocked at the hub by the health system and not included in marginal mission flight cost.
 5. **23% 4G coverage**: Estimate of fully connected Schedule V hamlets prior to ongoing Universal Service Obligation Fund (USOF) / Digital Bharat Nidhi 4G saturation tower rollouts in ASR district.
 

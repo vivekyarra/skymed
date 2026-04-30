@@ -133,7 +133,15 @@ function scoreLocally(form: FormState, visualBoost = 16): TriageResponse {
 
   const visualPoints = Math.min(25, visualBoost);
   score += visualPoints;
-  if (visualPoints >= 10) flags.push({ vital: 'Visual Severity', value: visualPoints, severity: visualPoints >= 18 ? 'high' : 'moderate', points: visualPoints, reason: 'Local image severity estimate' });
+  if (visualPoints >= 10) {
+    flags.push({
+      vital: 'Visual Risk Proxy',
+      value: visualPoints,
+      severity: visualPoints >= 18 ? 'high' : 'moderate',
+      points: visualPoints,
+      reason: 'Local visual cue proxy; not diagnostic',
+    });
+  }
 
   score = Math.min(100, score);
   const priority = score >= 70 ? 'P1' : score >= 40 ? 'P2' : 'P3';
@@ -170,8 +178,12 @@ function scoreLocally(form: FormState, visualBoost = 16): TriageResponse {
         contrast_std_dev: 39,
         red_channel_dominance: 32,
         image_entropy: 5.8,
+        onnx_inference: 'offline_local_proxy',
+        model_mode: 'visual_risk_proxy',
+        calibration_status: 'not clinically validated',
       },
-      model_note: 'Offline demo: deterministic local triage priority scoring running on ASHA tablet.',
+      model_note:
+        'Demo build: no validated wound severity classifier is bundled. Visual input contributes only a transparent risk-cue score; priority remains vitals-first and doctor-reviewed.',
     },
     timestamp: new Date().toISOString(),
     asha_id: form.asha_id,
@@ -340,6 +352,9 @@ export default function TriagePortal({
   };
 
   const priorityColor = result?.priority === 'P1' ? '#ff1744' : result?.priority === 'P2' ? '#ffb300' : '#00e676';
+  const visualAssessment = result?.visual_assessment;
+  const visualMode = visualAssessment?.visual_features.model_mode ?? 'visual_risk_proxy';
+  const calibrationStatus = visualAssessment?.visual_features.calibration_status ?? 'not clinically validated';
 
   return (
     <div className="grid gap-4 xl:grid-cols-[minmax(420px,0.86fr)_minmax(360px,0.64fr)]">
@@ -367,7 +382,7 @@ export default function TriagePortal({
               ) : (
                 <>
                   <Camera className="mb-3 h-10 w-10 text-accent-cyan" />
-                  <div className="font-bold">Upload wound or symptom photo</div>
+                  <div className="font-bold">Upload symptom photo for visual cues</div>
                   <div className="mt-1 text-sm text-text-muted">Drag-drop image or tap to open camera roll</div>
                 </>
               )}
@@ -555,6 +570,22 @@ export default function TriagePortal({
                   })}
                 </div>
               </div>
+
+              {visualAssessment && (
+                <div className="rounded-md border border-accent-amber/30 bg-accent-amber/10 p-4">
+                  <div className="mb-2 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+                    <h3 className="font-black text-accent-amber">Visual Cue Source</h3>
+                    <span className="rounded border border-accent-amber/40 px-2 py-1 text-xs font-bold uppercase tracking-normal text-accent-amber">
+                      {String(visualMode)}
+                    </span>
+                  </div>
+                  <p className="text-sm leading-6 text-text-muted">{visualAssessment.model_note}</p>
+                  <div className="mt-3 grid gap-2 text-xs text-text-muted md:grid-cols-2">
+                    <div>Visual contribution: {visualAssessment.severity_score}/25 triage points</div>
+                    <div>Calibration: {String(calibrationStatus)}</div>
+                  </div>
+                </div>
+              )}
 
               <div className="rounded-md border border-white/10 bg-bg-primary p-4">
                 <h3 className="mb-2 font-black">Recommended Action</h3>

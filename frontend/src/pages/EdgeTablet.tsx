@@ -53,7 +53,7 @@ export default function EdgeTablet({ isOffline, queueCount, onQueueCase }: EdgeT
       temperature_f: parseFloat(vitals.temp || '0'),
       systolic_bp: parseInt(vitals.sysBp || '0'),
       diastolic_bp: parseInt(vitals.diaBp || '0'),
-      chief_complaint: 'fever',
+      chief_complaint: 'high_fever',
       gps_lat: 18.2871,
       gps_lon: 82.8712,
       village_name: 'Paderu Hamlet',
@@ -85,6 +85,16 @@ export default function EdgeTablet({ isOffline, queueCount, onQueueCase }: EdgeT
           suggested_payload: [],
           drone_eta_min: null,
           vitals_flagged: [],
+          visual_assessment: {
+            severity_score: 0,
+            visual_features: {
+              onnx_inference: 'offline_queue_not_scored',
+              model_mode: 'visual_risk_proxy',
+              calibration_status: 'not clinically validated',
+            },
+            model_note:
+              'Offline queue entry: visual scoring will run as an explicit non-diagnostic proxy when the packet is processed.',
+          },
           timestamp: new Date().toISOString(),
           asha_id: vitalsData.asha_id,
           queuedOffline: true,

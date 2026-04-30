@@ -265,6 +265,9 @@ def seed_database(engine) -> None:
                         "contrast_std_dev": 25 + visual_score,
                         "red_channel_dominance": 10 + visual_score * 1.8,
                         "image_entropy": round(4.2 + visual_score / 10, 2),
+                        "onnx_inference": "seeded_proxy",
+                        "model_mode": "visual_risk_proxy",
+                        "calibration_status": "not clinically validated",
                     }
                 ),
                 triage_score=scored["triage_score"],

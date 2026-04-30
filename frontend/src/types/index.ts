@@ -40,7 +40,7 @@ export type CaseRecord = {
   diastolic_bp: number;
   chief_complaint: ChiefComplaint;
   visual_severity_score: number;
-  visual_features: Record<string, number | null>;
+  visual_features: Record<string, number | string | boolean | null>;
   triage_score: number;
   priority: Priority;
   recommended_action: string;
@@ -147,7 +147,7 @@ export type TriageResponse = {
   vitals_flagged: VitalFlag[];
   visual_assessment?: {
     severity_score: number;
-    visual_features: Record<string, number | null>;
+    visual_features: Record<string, number | string | boolean | null>;
     model_note: string;
   };
   timestamp: string;

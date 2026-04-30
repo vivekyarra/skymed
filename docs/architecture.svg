@@ -46,7 +46,7 @@
   <text x="600" y="430" text-anchor="middle" fill="#f9fafb" font-family="Arial, sans-serif" font-size="21">ASHA Worker Tech Kit</text>
 
   <text x="600" y="506" text-anchor="middle" fill="#ff1744" font-family="Arial, sans-serif" font-size="30" font-weight="900">DRONE EDGE</text>
-  <text x="600" y="540" text-anchor="middle" fill="#f9fafb" font-family="Arial, sans-serif" font-size="20">INT8 Triage Model</text>
+  <text x="600" y="540" text-anchor="middle" fill="#f9fafb" font-family="Arial, sans-serif" font-size="20">Vitals Rules + Visual Risk Proxy</text>
   <text x="600" y="567" text-anchor="middle" fill="#f9fafb" font-family="Arial, sans-serif" font-size="20">Offline First</text>
   <text x="600" y="594" text-anchor="middle" fill="#f9fafb" font-family="Arial, sans-serif" font-size="20">Snapdragon NPU</text>
 

@@ -90,7 +90,7 @@ export default function Analytics({ isOffline }: { isOffline: boolean }) {
       <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
         <div>
           <h1 className="text-2xl font-black">Analytics</h1>
-          <p className="text-sm text-text-muted">Operational impact model derived from triage packets and mission telemetry.</p>
+          <p className="text-sm text-text-muted">Operational impact proxy derived from demo triage packets and planning assumptions.</p>
         </div>
         <div className="grid grid-cols-3 rounded-md border border-white/10 bg-surface p-1">
           {(['24h', '7d', '30d'] as const).map((item) => (
@@ -110,8 +110,8 @@ export default function Analytics({ isOffline }: { isOffline: boolean }) {
         {[
           { label: 'Avg triage-to-doctor', value: '4.2 min', icon: Clock, color: 'text-accent-cyan' },
           { label: 'Avg drone delivery', value: '18.4 min', icon: TrendingUp, color: 'text-accent-green' },
-          { label: 'Golden-hour risk changed', value: '73%', icon: MapPinned, color: 'text-accent-amber' },
-          { label: 'Projected critical interventions', value: '3,049/mo', icon: TrendingUp, color: 'text-accent-red' },
+          { label: 'Golden-hour risk proxy', value: 'Pilot TBD', icon: MapPinned, color: 'text-accent-amber' },
+          { label: 'Projected P1 gap cases', value: '2,874/mo', icon: TrendingUp, color: 'text-accent-red' },
         ].map((item) => {
           const Icon = item.icon;
           return (
@@ -237,8 +237,8 @@ export default function Analytics({ isOffline }: { isOffline: boolean }) {
               {[
                 ['847', 'tribal villages'],
                 ['12', 'cases per month'],
-                ['30%', 'P1 intervention gap'],
-                ['~3,049', 'critical interventions/month'],
+                ['28.3%', 'P1 access-gap proxy'],
+                ['~2,874', 'P1 reviews/month'],
               ].map(([value, label]) => (
                 <div key={label} className="rounded-md border border-white/10 bg-bg-primary p-4 text-center">
                   <div className="text-2xl font-black text-accent-cyan">{value}</div>
@@ -247,8 +247,8 @@ export default function Analytics({ isOffline }: { isOffline: boolean }) {
               ))}
             </div>
             <p className="mt-4 text-sm leading-6 text-text-muted">
-              847 tribal villages x 12 cases/month x 30% P1 gap = approximately 3,049 possible critical interventions per month.
-              Estimated 73% would have missed the golden hour without SkyMed.
+              847 tribal villages x 12 cases/month x 28.3% proxy gap = approximately 2,874 possible P1 review opportunities per month.
+              Proxy pending pilot data; the 28.3% input is deliberately conservative and should be replaced with measured pilot outcomes.
             </p>
           </section>
         </>

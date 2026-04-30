@@ -15,7 +15,7 @@ function ArchitectureDiagram() {
       <text x="600" y="263" textAnchor="middle" fill="#f9fafb" fontSize="19">LoRa P2P | Store &amp; Forward | ASHA Worker Tech Kit</text>
 
       <text x="600" y="380" textAnchor="middle" fill="#ff1744" fontSize="27" fontWeight="900">DRONE EDGE</text>
-      <text x="600" y="417" textAnchor="middle" fill="#f9fafb" fontSize="18">INT8 Triage Model | Offline First | Snapdragon NPU</text>
+      <text x="600" y="417" textAnchor="middle" fill="#f9fafb" fontSize="18">Vitals Rules + Visual Risk Proxy | Offline First</text>
 
       <g fill="none" strokeLinecap="round" strokeWidth="4">
         <path d="M420 430 C300 500 300 615 460 662" stroke="#ffb300" markerEnd="url(#arrow)" />
@@ -68,7 +68,7 @@ export default function About() {
           </h1>
           <p className="mt-5 max-w-3xl text-base leading-7 text-text-muted">
             SkyMed is the command, coordination, and intelligence software layer for a VTOL medical drone network.
-            It performs AI triage priority scoring, coordinates doctor-confirmed dispatch, and relays telemetry between ASHA workers and AMTZ doctors.
+            It performs vitals-first triage priority scoring, coordinates doctor-confirmed dispatch, and relays telemetry between ASHA workers and AMTZ doctors.
           </p>
         </div>
       </section>
@@ -97,7 +97,7 @@ export default function About() {
         <ArchitectureDiagram />
         <div className="mt-4 grid gap-3 md:grid-cols-3">
           {[
-            { title: 'Layer 1: Drone Edge', body: 'Tablet runs an INT8 quantized triage priority model offline.', icon: Cpu, color: 'text-accent-red' },
+            { title: 'Layer 1: Drone Edge', body: 'Tablet runs vitals-first triage rules offline; image input is an explicit visual-risk proxy in this demo.', icon: Cpu, color: 'text-accent-red' },
             { title: 'Layer 2: Village Mesh', body: 'LoRa mesh nodes store and forward structured packets without internet.', icon: Network, color: 'text-accent-amber' },
             { title: 'Layer 3: District Cloud', body: 'AMTZ doctors review telemetry and confirm dispatch decisions.', icon: Plane, color: 'text-accent-cyan' },
           ].map((item) => {
@@ -118,7 +118,8 @@ export default function About() {
           <h2 className="mb-3 text-xl font-black">Why Triage, Not Diagnosis</h2>
           <div className="space-y-3 text-sm leading-6 text-text-muted">
             <p>We do not replace doctors — we ensure doctors see the right patient first.</p>
-            <p>AI assigns a priority score; the human doctor makes all clinical decisions and must confirm dispatch.</p>
+            <p>The app assigns a priority score; the human doctor makes all clinical decisions and must confirm dispatch.</p>
+            <p>The current demo does not include a validated wound severity classifier. Visual input is a transparent risk-cue proxy until pilot data supports a validated model.</p>
             <p>The workflow is framed for NMC telemedicine guideline compatibility and DPDP Act 2023 aligned data handling: AES-256 encryption and no PII in mesh broadcast.</p>
           </div>
         </div>
@@ -167,7 +168,7 @@ export default function About() {
         <div className="panel rounded-md p-5">
           <h2 className="mb-4 text-xl font-black">Thematic Alignment</h2>
           <div className="space-y-3 text-sm leading-6 text-text-muted">
-            <div><span className="font-black text-accent-cyan">AI & Electronics:</span> Edge triage priority scoring model.</div>
+            <div><span className="font-black text-accent-cyan">AI & Electronics:</span> Edge triage priority scoring with an explicit visual-risk proxy.</div>
             <div><span className="font-black text-accent-cyan">Space Tech & Drones:</span> VTOL coordination software.</div>
             <div><span className="font-black text-accent-cyan">Medicine & Biotechnology:</span> ASHA-integrated care relay.</div>
             <div>Honest scoping: SkyMed does not claim unrelated categories.</div>

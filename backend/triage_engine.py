@@ -115,9 +115,9 @@ def score_triage(vitals: dict[str, Any], visual_severity_score: int) -> dict[str
     visual_points = max(0, min(25, int(visual_severity_score)))
     score += visual_points
     if visual_points >= 18:
-        flags.append(_flag("Visual Severity", visual_points, "high", visual_points, "Image features indicate severe visible injury"))
+        flags.append(_flag("Visual Risk Proxy", visual_points, "high", visual_points, "Visual cue proxy indicates high concern; not diagnostic"))
     elif visual_points >= 10:
-        flags.append(_flag("Visual Severity", visual_points, "moderate", visual_points, "Image features indicate moderate visual concern"))
+        flags.append(_flag("Visual Risk Proxy", visual_points, "moderate", visual_points, "Visual cue proxy indicates moderate concern; not diagnostic"))
 
     score = min(100, int(score))
     if score >= 70:
