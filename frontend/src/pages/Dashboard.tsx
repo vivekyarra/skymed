@@ -238,14 +238,14 @@ export default function Dashboard({
           </div>
         </div>
 
-        <aside className="panel rounded-md">
-          <div className="border-b border-white/10 p-4">
+        <aside className="panel flex flex-col overflow-hidden rounded-md">
+          <div className="shrink-0 border-b border-white/10 p-4">
             <div className="flex items-center justify-between">
               <h2 className="text-lg font-black">Live P1 Alert Feed</h2>
               <span className="badge border-accent-red/40 text-accent-red">{p1Alerts.length} active</span>
             </div>
           </div>
-          <div className="max-h-[62vh] space-y-3 overflow-y-auto p-4">
+          <div className="flex-1 space-y-3 overflow-y-auto p-4">
             {p1Alerts.length === 0 ? (
               <div className="grid min-h-56 place-items-center rounded-md border border-accent-green/30 bg-accent-green/5 text-center">
                 <div>
