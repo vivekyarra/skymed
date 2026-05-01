@@ -11,38 +11,65 @@ import type {
   Village,
 } from '../types';
 
+import { MOCK_CASES, MOCK_FLEET, MOCK_MESH_NODES, MOCK_VILLAGES } from './mockData';
+
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8000';
 
 export const api = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 10000,
+  timeout: 5000, // Reduced timeout for faster fallback
 });
 
 export const wsUrl = API_BASE_URL.replace(/^http/, 'ws') + '/ws/live';
 
 export async function fetchCases(filters?: { priority?: string; status?: string; village?: string }) {
-  const { data } = await api.get<CaseRecord[]>('/api/cases', { params: filters });
-  return data;
+  try {
+    const { data } = await api.get<CaseRecord[]>('/api/cases', { params: filters });
+    return data;
+  } catch (error) {
+    console.warn('Backend unreachable, using mock cases', error);
+    return MOCK_CASES;
+  }
 }
 
 export async function fetchMeshNodes() {
-  const { data } = await api.get<MeshNode[]>('/api/mesh/nodes');
-  return data;
+  try {
+    const { data } = await api.get<MeshNode[]>('/api/mesh/nodes');
+    return data;
+  } catch (error) {
+    console.warn('Backend unreachable, using mock mesh nodes', error);
+    return MOCK_MESH_NODES;
+  }
 }
 
 export async function fetchMissions() {
-  const { data } = await api.get<Mission[]>('/api/drone/missions');
-  return data;
+  try {
+    const { data } = await api.get<Mission[]>('/api/drone/missions');
+    return data;
+  } catch (error) {
+    console.warn('Backend unreachable, using mock missions', error);
+    return [];
+  }
 }
 
 export async function fetchFleet() {
-  const { data } = await api.get<FleetDrone[]>('/api/drone/fleet');
-  return data;
+  try {
+    const { data } = await api.get<FleetDrone[]>('/api/drone/fleet');
+    return data;
+  } catch (error) {
+    console.warn('Backend unreachable, using mock fleet', error);
+    return MOCK_FLEET;
+  }
 }
 
 export async function fetchVillages() {
-  const { data } = await api.get<Village[]>('/api/villages');
-  return data;
+  try {
+    const { data } = await api.get<Village[]>('/api/villages');
+    return data;
+  } catch (error) {
+    console.warn('Backend unreachable, using mock villages', error);
+    return MOCK_VILLAGES;
+  }
 }
 
 export async function submitTriage(formData: FormData, config?: AxiosRequestConfig) {
